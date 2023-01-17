@@ -6,9 +6,7 @@ import java.util.stream.Collectors;
 public class Graph {
     private final Map<Vertex, ArrayList<Edge>> graph = new HashMap<>();
 
-    public void addVertex(Vertex source) {
-        graph.put(source, new ArrayList<>());
-    }
+    public void addVertex(Vertex source) { if (!graph.containsKey(source)) graph.put(source, new ArrayList<>()); }
 
     public void addVertex(String label) {
         addVertex(new Vertex(label));
@@ -44,12 +42,14 @@ public class Graph {
     }
 
     public void addEdge(Vertex source, Edge edge) {
-        if (!graph.containsKey(source)) addVertex(source);
+        addVertex(source);
+        addVertex(edge.getDestination());
 
-        Vertex destination = edge.getDestination();
-        if (!graph.containsKey(destination)) addVertex(destination);
+        ArrayList<Edge> edges = graph.get(source);
 
-        graph.get(source).add(edge);
+        if (!edges.contains(edge)) {
+            edges.add(edge);
+        }
     }
 
     public void addEdge(Vertex source, Vertex destination, int weight) {
@@ -76,7 +76,9 @@ public class Graph {
         return graph
                 .get(vertex)
                 .stream()
-                .sorted(Comparator.comparing(edge -> edge.getDestination().getLabel()))
+                .sorted(Comparator
+                                .comparing(Edge::getDestination, Comparator.comparing(Vertex::getLabel))
+                                .thenComparing(Edge::getWeight))
                 .collect(Collectors.toList());
     }
 

@@ -2,10 +2,12 @@ package com.anzop.graph;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class GraphTest {
 
@@ -28,6 +30,36 @@ public class GraphTest {
         String expected = "A -> \n";
 
         assertEquals(expected, g.toString());
+    }
+
+    @Test
+    void TestAddVertexDoesNotOverwriteExistingVertex() {
+        Graph g = new Graph();
+        g.addEdge("A", "A", 1);
+        g.addEdge("A", "B", 1);
+        g.addEdge("A", "C", 1);
+
+        String expectedBefore =
+                "A -> (A, 1), (B, 1), (C, 1)\n" +
+                "B -> \n" +
+                "C -> \n";
+
+        assertEquals(expectedBefore, g.toString());
+
+        g.addVertex("A");
+
+        String notExpectedAfter =
+                "A -> \n" +
+                "B -> \n" +
+                "C -> \n";
+
+        String expectedAfter =
+                "A -> (A, 1), (B, 1), (C, 1)\n" +
+                "B -> \n" +
+                "C -> \n";
+
+        assertNotEquals(notExpectedAfter, g.toString());
+        assertEquals(expectedAfter, g.toString());
     }
 
     @Test
@@ -56,11 +88,11 @@ public class GraphTest {
     @Test
     void TestRemoveVertexRemovesVertexButLeavesOtherVertices() {
         Graph g = new Graph();
-        Vertex v = new Vertex("A");
+        Vertex v1 = new Vertex("A");
         Vertex v2 = new Vertex("B");
-        g.addVertex(v);
+        g.addVertex(v1);
         g.addVertex(v2);
-        g.removeVertex(v);
+        g.removeVertex(v1);
 
         String expected = "B -> \n";
 
@@ -94,11 +126,11 @@ public class GraphTest {
     @Test
     void TestAddEdgeAddsEdge() {
         Graph g = new Graph();
-        Vertex v = new Vertex("A");
+        Vertex v1 = new Vertex("A");
         Vertex v2 = new Vertex("B");
-        g.addVertex(v);
+        g.addVertex(v1);
         g.addVertex(v2);
-        g.addEdge(v, new Edge(v2, 1));
+        g.addEdge(v1, new Edge(v2, 1));
 
         String expected =
                 "A -> (B, 1)\n" +
@@ -110,9 +142,9 @@ public class GraphTest {
     @Test
     void TestAddEdgesAsTupleOfVerticesAddsEdges() {
         Graph g = new Graph();
-        Vertex v = new Vertex("A");
+        Vertex v1 = new Vertex("A");
         Vertex v2 = new Vertex("B");
-        g.addEdge(v, v2, 1);
+        g.addEdge(v1, v2, 1);
 
         String expected =
                 "A -> (B, 1)\n" +
@@ -177,7 +209,20 @@ public class GraphTest {
         assertEquals(expected, g.toString()); }
 
     @Test
-    void TestAddEdgeTwiceWithDifferentWeightsSuccess() {
+    void TestAddDuplicateEdgeAddsOnlyOneEdge() {
+        Graph g = new Graph();
+        g.addEdge("A", "B", 1);
+        g.addEdge("A", "B", 11);
+        g.addEdge("A", "B", 1);
+
+        String expected =
+                "A -> (B, 1), (B, 11)\n" +
+                "B -> \n";
+
+        assertEquals(expected, g.toString()); }
+
+    @Test
+    void TestAddEdgeWithDuplicateDestinationButDifferentWeightSuccess() {
         Graph g = new Graph();
         g.addEdge("A", "B", 1);
         g.addEdge("A", "B", 2);
@@ -206,12 +251,12 @@ public class GraphTest {
     @Test
     void TestRemoveVertexAlsoRemovesAllAssociatedEdges() {
         Graph g = new Graph();
-        Vertex v = new Vertex("A");
+        Vertex v1 = new Vertex("A");
         Vertex v2 = new Vertex("B");
         Vertex v3 = new Vertex("C");
-        g.addEdge(v, v2, 1);
-        g.addEdge(v, v2, 2);
-        g.addEdge(v2, v, 4);
+        g.addEdge(v1, v2, 1);
+        g.addEdge(v1, v2, 2);
+        g.addEdge(v2, v1, 4);
         g.addEdge(v2, v3, 3);
 
         String expectedBefore =
@@ -240,12 +285,12 @@ public class GraphTest {
         g.addEdge("C", "B", 5);
         g.addEdge("B", "A", 6);
 
-        String expected =
+        String expectedBefore =
                 "A -> (B, 1), (C, 4)\n" +
                 "B -> (A, 6), (C, 2)\n" +
                 "C -> (A, 3), (B, 5)\n";
 
-        assertEquals(expected, g.toString());
+        assertEquals(expectedBefore, g.toString());
 
         g.removeVertex(new Vertex("B"));
 
@@ -276,13 +321,13 @@ public class GraphTest {
         g.addEdge("D", "B", 4);
         g.addEdge("D", "C", 5);
 
-        String expected =
+        String expectedBefore =
                 "A -> (A, 0), (B, 1), (C, 2), (D, 3)\n" +
                 "B -> (A, 7), (B, 4), (C, 5), (D, 6)\n" +
                 "C -> (A, 0), (B, 1), (C, 8), (D, 9)\n" +
                 "D -> (A, 3), (B, 4), (C, 5), (D, 2)\n";
 
-        assertEquals(expected, g.toString());
+        assertEquals(expectedBefore, g.toString());
 
         g.removeVertex(new Vertex("B"));
         g.removeVertex(new Vertex("D"));
@@ -294,7 +339,7 @@ public class GraphTest {
         assertEquals(expectedAfter, g.toString());
     }
     @Test
-    void TestGetKeysSortedReturnsKeysSortedByValue() {
+    void TestGetKeysSortedReturnsKeysSortedByVertexLabel() {
         Graph g = new Graph();
         g.addVertex("D");
         g.addVertex("C");
@@ -309,16 +354,17 @@ public class GraphTest {
     }
 
     @Test
-    void TestGetEdgesSortedReturnsKeysSortedByValue() {
+    void TestGetEdgesSortedReturnsEdgesSortedByDestinationAndThenWeight() {
         Graph g = new Graph();
         Vertex v = new Vertex("A");
         g.addEdge(v, new Vertex("C"), 3);
         g.addEdge(v, new Vertex("D"), 4);
+        g.addEdge(v, new Vertex("B"), 9);
         g.addEdge(v, new Vertex("B"), 2);
 
-        String expected = "[B, C, D]";
+        String expected = "[(B, 2), (B, 9), (C, 3), (D, 4)]";
 
-        List<String> keys = g.getEdgesSorted(v).stream().map(edge -> edge.getDestination().getLabel()).collect(Collectors.toList());
+        List<Edge> keys = new ArrayList<>(g.getEdgesSorted(v));
 
         assertEquals(expected, keys.toString());
     }
