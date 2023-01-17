@@ -2,7 +2,7 @@ package com.anzop.graph;
 
 import java.util.Objects;
 
-public class Edge {
+public class Edge implements Comparable<Edge> {
     private final Vertex destination;
 
     private final int weight;
@@ -40,4 +40,8 @@ public class Edge {
         return Objects.equals(weight, comparison.weight) && Objects.equals(destination, comparison.destination);
     }
 
+    @Override
+    public int compareTo(Edge o) {
+        return weight - o.weight;
+    }
 }
