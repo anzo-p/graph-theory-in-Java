@@ -12,8 +12,8 @@ public class DepthFirstSearchTest {
     @Test
     void TestTraverseSimple() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 1);
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -26,10 +26,10 @@ public class DepthFirstSearchTest {
     @Test
     void TestTraverseSimpleDoNotLoop() {
         Graph g = new Graph();
-        g.addEdge("A", "A", 1);
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 1);
-        g.addEdge("C", "A", 1);
+        g.addEdge("A", "A");
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "A");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -42,10 +42,10 @@ public class DepthFirstSearchTest {
     @Test
     void TestTraverseAlwaysTraverseVertexAndEdgesValueInAlphabeticOrder() {
         Graph g = new Graph();
-        g.addEdge("C", "D", 1);
-        g.addEdge("B", "C", 1);
-        g.addEdge("A", "B", 1);
-        g.addEdge("D", "A", 1);
+        g.addEdge("C", "D");
+        g.addEdge("B", "C");
+        g.addEdge("A", "B");
+        g.addEdge("D", "A");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -58,8 +58,8 @@ public class DepthFirstSearchTest {
     @Test
     void TestTraverseWhileNextWhenAtDeadEnd() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 1);
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
         g.addVertex("E");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
@@ -72,7 +72,7 @@ public class DepthFirstSearchTest {
     @Test
     void TestTraverseWhileNextFromNonexistentVertex() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
+        g.addEdge("A", "B");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -84,9 +84,9 @@ public class DepthFirstSearchTest {
     @Test
     void TestFullTraverseWillAttemptAllStartingVertices() {
         Graph g = new Graph();
-        g.addEdge("A", "D", 1);
-        g.addEdge("B", "D", 1);
-        g.addEdge("C", "D", 1);
+        g.addEdge("A", "D");
+        g.addEdge("B", "D");
+        g.addEdge("C", "D");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -98,9 +98,9 @@ public class DepthFirstSearchTest {
     @Test
     void TestFullTraverseWillAlsoTraverseDisconnectedVerticesAndEdges() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "D", 1);
-        g.addEdge("C", "E", 1);
+        g.addEdge("A", "B");
+        g.addEdge("B", "D");
+        g.addEdge("C", "E");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -112,10 +112,10 @@ public class DepthFirstSearchTest {
     @Test
     void TestTraverseFromBeginningIntoTheSameVertex() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 1);
-        g.addEdge("C", "D", 1);
-        g.addEdge("D", "A", 1);
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "D");
+        g.addEdge("D", "A");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -127,10 +127,10 @@ public class DepthFirstSearchTest {
     @Test
     void TestTraverseIntoSeekIntoStartingVertexAndTraverseIntoTheSameVertex() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 1);
-        g.addEdge("C", "D", 1);
-        g.addEdge("D", "A", 1);
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "D");
+        g.addEdge("D", "A");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -142,10 +142,10 @@ public class DepthFirstSearchTest {
     @Test
     void TestTraverseIntoMayLoopOverUnlessVisited() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 1);
-        g.addEdge("C", "D", 1);
-        g.addEdge("D", "A", 1);
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "D");
+        g.addEdge("D", "A");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -157,10 +157,10 @@ public class DepthFirstSearchTest {
     @Test
     void TestTraverseIntoDisconnectedVertexTriesAllAvailableVerticesInPath() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 1);
-        g.addEdge("C", "A", 1);
-        g.addEdge("D", "E", 1);
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "A");
+        g.addEdge("D", "E");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -172,10 +172,10 @@ public class DepthFirstSearchTest {
     @Test
     void TestTraverseIntoNonexistentVertexTriesAllAvailableVerticesInPath() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 1);
-        g.addEdge("C", "D", 1);
-        g.addEdge("D", "A", 1);
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "D");
+        g.addEdge("D", "A");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -187,10 +187,10 @@ public class DepthFirstSearchTest {
     @Test
     void TestTraverseIntoFromNonexistentVertexToTheSameVertex() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 1);
-        g.addEdge("C", "D", 1);
-        g.addEdge("D", "A", 1);
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "D");
+        g.addEdge("D", "A");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -202,10 +202,10 @@ public class DepthFirstSearchTest {
     @Test
     void TestTraverseIntoFromNonexistentVertexToAnotherNonexistentVertex() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 1);
-        g.addEdge("C", "D", 1);
-        g.addEdge("D", "A", 1);
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "D");
+        g.addEdge("D", "A");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -217,10 +217,10 @@ public class DepthFirstSearchTest {
     @Test
     void TestTraverseIntoFromNonexistentVertexIntoExistingVertex() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 1);
-        g.addEdge("C", "D", 1);
-        g.addEdge("D", "A", 1);
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "D");
+        g.addEdge("D", "A");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -251,8 +251,8 @@ public class DepthFirstSearchTest {
     @Test
     void TestFindComponentsOneComponent() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 1);
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -262,13 +262,13 @@ public class DepthFirstSearchTest {
     @Test
     void TestFindComponentsFromThreeComponents() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 1);
-        g.addEdge("C", "A", 1);
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "A");
 
-        g.addEdge("I", "J", 1);
+        g.addEdge("I", "J");
 
-        g.addEdge("U", "V", 1);
+        g.addEdge("U", "V");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -278,11 +278,11 @@ public class DepthFirstSearchTest {
     @Test
     void TestFindComponentsWhenComponentHasLateLinkBackInDirectedGraph() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
+        g.addEdge("A", "B");
 
-        g.addEdge("I", "J", 1);
+        g.addEdge("I", "J");
 
-        g.addEdge("U", "A", 1);
+        g.addEdge("U", "A");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
@@ -292,11 +292,11 @@ public class DepthFirstSearchTest {
     @Test
     void TestFindComponentsWhenComponentHaLinkBackInBiDiGraph() {
         Graph g = new Graph();
-        g.addBidirectionalEdge("A", "B", 1);
+        g.addBidirectionalEdge("A", "B");
 
-        g.addBidirectionalEdge("I", "J", 1);
+        g.addBidirectionalEdge("I", "J");
 
-        g.addBidirectionalEdge("U", "A", 1);
+        g.addBidirectionalEdge("U", "A");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 

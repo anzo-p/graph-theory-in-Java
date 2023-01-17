@@ -323,7 +323,7 @@ public class GraphTest {
 
         String expected = "[A, B, C, D]";
 
-        ArrayList<String> keys = g.getKeysSorted().stream().map(Vertex::getLabel).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<String> keys = g.getVerticesSorted().stream().map(Vertex::getLabel).collect(Collectors.toCollection(ArrayList::new));
 
         assertEquals(expected, keys.toString());
     }

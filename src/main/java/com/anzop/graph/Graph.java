@@ -59,6 +59,14 @@ public class Graph {
         addEdge(new Vertex(source), new Edge(new Vertex(destination), weight));
     }
 
+    public void addEdge(Vertex source, Vertex destination) {
+        addEdge(source, new Edge(destination, 1));
+    }
+
+    public void addEdge(String source, String destination) {
+        addEdge(new Vertex(source), new Edge(new Vertex(destination), 1));
+    }
+
     public void addBidirectionalEdge(Vertex source, Vertex destination, int weight) {
         addEdge(source, new Edge(destination, weight));
         addEdge(destination, new Edge(source, weight));
@@ -68,11 +76,19 @@ public class Graph {
         addBidirectionalEdge(new Vertex(source), new Vertex(destination), weight);
     }
 
+    public void addBidirectionalEdge(Vertex source, Vertex destination) {
+        addBidirectionalEdge(source, destination, 1);
+    }
+
+    public void addBidirectionalEdge(String source, String destination) {
+        addBidirectionalEdge(source, destination, 1);
+    }
+
     public void removeEdge(Vertex vertex, Edge edge) {
         graph.get(vertex).remove(edge);
     }
 
-    public ArrayList<Vertex> getKeysSorted() {
+    public ArrayList<Vertex> getVerticesSorted() {
         return graph
                 .keySet()
                 .stream()
@@ -94,7 +110,7 @@ public class Graph {
     public String toString() {
         StringBuilder result = new StringBuilder();
 
-        for (Vertex vertex : getKeysSorted()) {
+        for (Vertex vertex : getVerticesSorted()) {
             result
                     .append(vertex.getLabel())
                     .append(" -> ")

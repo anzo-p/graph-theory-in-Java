@@ -58,7 +58,7 @@ public class DepthFirstSearch extends BaseSearch {
     public SearchResult traverseWhileNext(Vertex from) {
         initialize();
 
-        if (graph.getKeysSorted().contains(from)) {
+        if (graph.getVerticesSorted().contains(from)) {
             traverse(makeStarterEdge(from));
         }
         return makeResponse(path);
@@ -67,7 +67,7 @@ public class DepthFirstSearch extends BaseSearch {
     public SearchResult traverseInto(Vertex from, Vertex to) {
         initialize();
 
-        if (graph.getKeysSorted().contains(from)) {
+        if (graph.getVerticesSorted().contains(from)) {
             traverse(makeStarterEdge(from), to);
         }
         return makeResponse(path);
@@ -76,7 +76,7 @@ public class DepthFirstSearch extends BaseSearch {
     public SearchResult fullTraverse() {
         initialize();
 
-        graph.getKeysSorted().forEach(vertex -> {
+        graph.getVerticesSorted().forEach(vertex -> {
             if (!visited.contains(vertex)) {
                 traverse(makeStarterEdge(vertex));
             }
@@ -88,7 +88,7 @@ public class DepthFirstSearch extends BaseSearch {
     public int findComponents() {
         initialize();
 
-        graph.getKeysSorted().forEach(vertex -> {
+        graph.getVerticesSorted().forEach(vertex -> {
             if (!visited.contains(vertex)) {
                 groupCode++;
                 traverse(makeStarterEdge(vertex));
