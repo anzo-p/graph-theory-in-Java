@@ -1,9 +1,12 @@
 package com.anzop.graph;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class Vertex {
     private final String label;
+
+    private Optional<Integer> groupCode = Optional.empty();
 
     public Vertex(String label) {
         this.label = label;
@@ -11,6 +14,20 @@ public class Vertex {
 
     public String getLabel() {
         return label;
+    }
+
+    public Optional<Integer> getGroupCode() {
+        return groupCode;
+    }
+
+    public void setGroupCode(int groupCode) {
+        this.groupCode = Optional.of(groupCode);
+    }
+
+    @Override
+    public String toString() {
+        // fixme need to decide group code presentation
+        return label + '|' + groupCode.orElse(0);
     }
 
     @Override

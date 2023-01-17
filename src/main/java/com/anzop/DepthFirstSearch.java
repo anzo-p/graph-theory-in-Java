@@ -27,11 +27,16 @@ public class DepthFirstSearch {
         groupCode = 0;
     }
 
-    private void traverse(Vertex v) {
-        visited.add(v);
-        path.add(v.getLabel());
+    private void bookkeeping(Vertex vertex) {
+        vertex.setGroupCode(groupCode);
+        path.add(vertex.getLabel());
+        visited.add(vertex);
+    }
 
-        graph.getEdgesSorted(v).forEach(edge -> {
+    private void traverse(Vertex from) {
+        bookkeeping(from);
+
+        graph.getEdgesSorted(from).forEach(edge -> {
             if (!visited.contains(edge.getDestination())) {
                 traverse(edge.getDestination());
             }
@@ -39,8 +44,7 @@ public class DepthFirstSearch {
     }
 
     private void traverse(Vertex from, Vertex to) {
-        visited.add(from);
-        path.add(from.getLabel());
+        bookkeeping(from);
 
         if (from.equals(to)) {
             return;

@@ -110,7 +110,7 @@ public class DepthFirstSearchTest {
     }
 
     @Test
-    void TestTraverseFromBeginningIntoTheSameVertexSuccess() {
+    void TestTraverseFromBeginningIntoTheSameVertex() {
         Graph g = new Graph();
         g.addEdge("A", "B", 1);
         g.addEdge("B", "C", 1);
