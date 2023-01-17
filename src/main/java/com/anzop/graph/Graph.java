@@ -28,7 +28,6 @@ public class Graph {
                     } else {
                         deletedEdges.put(vertex, new ArrayList<>(Collections.singletonList(edge)));
                     }
-                    deletedEdges.get(vertex).add(edge);
                 }
             })
         );

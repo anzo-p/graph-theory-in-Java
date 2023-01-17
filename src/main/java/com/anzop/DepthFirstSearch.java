@@ -22,8 +22,8 @@ public class DepthFirstSearch {
     private int groupCode = 0;
 
     private void initialize() {
-        path = new ArrayList<>();
         visited = new HashSet<>();
+        path = new ArrayList<>();
         groupCode = 0;
     }
 
