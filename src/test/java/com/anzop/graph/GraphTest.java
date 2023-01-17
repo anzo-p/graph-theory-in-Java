@@ -3,7 +3,6 @@ package com.anzop.graph;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -348,7 +347,7 @@ public class GraphTest {
 
         String expected = "[A, B, C, D]";
 
-        List<String> keys = g.getKeysSorted().stream().map(Vertex::getLabel).collect(Collectors.toList());
+        ArrayList<String> keys = g.getKeysSorted().stream().map(Vertex::getLabel).collect(Collectors.toCollection(ArrayList::new));
 
         assertEquals(expected, keys.toString());
     }
@@ -364,8 +363,6 @@ public class GraphTest {
 
         String expected = "[(B, 2), (B, 9), (C, 3), (D, 4)]";
 
-        List<Edge> keys = new ArrayList<>(g.getEdgesSorted(v));
-
-        assertEquals(expected, keys.toString());
+        assertEquals(expected, g.getEdgesSorted(v).toString());
     }
 }

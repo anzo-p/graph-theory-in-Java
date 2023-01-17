@@ -64,22 +64,22 @@ public class Graph {
         graph.get(vertex).remove(edge);
     }
 
-    public List<Vertex> getKeysSorted() {
+    public ArrayList<Vertex> getKeysSorted() {
         return graph
                 .keySet()
                 .stream()
                 .sorted(Comparator.comparing(Vertex::getLabel))
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public List<Edge> getEdgesSorted(Vertex vertex) {
+    public ArrayList<Edge> getEdgesSorted(Vertex vertex) {
         return graph
                 .get(vertex)
                 .stream()
                 .sorted(Comparator
                                 .comparing(Edge::getDestination, Comparator.comparing(Vertex::getLabel))
                                 .thenComparing(Edge::getWeight))
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
