@@ -1,5 +1,9 @@
 package com.anzop;
 
+import com.anzop.graph.*;
+
+import java.util.PriorityQueue;
+
 /*
     Breadth First Search, BFS is a Base traversal algorithm
 
@@ -10,50 +14,18 @@ package com.anzop;
     - the memory footprint of traversal
  */
 
-import com.anzop.graph.Edge;
-import com.anzop.graph.Graph;
-import com.anzop.graph.Response;
-import com.anzop.graph.Vertex;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.PriorityQueue;
-import java.util.stream.Collectors;
-
-public class BreadthFirstSearch {
-    private final Graph graph;
-
-    private HashSet<Vertex> visited = new HashSet<>();
-
-    private ArrayList<Edge> path;
+public class BreadthFirstSearch extends BaseSearch {
 
     private final PriorityQueue<Edge> queue = new PriorityQueue<>();
 
-    private void initialize() {
-        visited = new HashSet<>();
-        path = new ArrayList<>();
-    }
-
-    private void bookkeeping(Edge edge) {
-        path.add(edge);
-        visited.add(edge.getDestination());
-    }
-
     public BreadthFirstSearch(Graph graph) {
-        this.graph = graph;
+        super(graph);
     }
 
-    public Response makeResponse(ArrayList<Edge> path) {
-        return new Response(
-                path.stream().map(Edge::getDestination).map(Vertex::getLabel).collect(Collectors.joining(", ")),
-                path.stream().map(Edge::getWeight).reduce(0, Integer::sum)
-        );
-    }
-
-    public Response traverseDijkstra(Vertex from , Vertex to) {
+    public SearchResult traverseDijkstra(Vertex from , Vertex to) {
         initialize();
 
-        queue.add(new Edge(from, 0));
+        queue.add(makeStarterEdge(from));
 
         while (!queue.isEmpty()) {
             Edge edge = queue.poll();

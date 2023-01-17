@@ -1,94 +1,88 @@
 package com.anzop;
 
+import com.anzop.graph.*;
+
 /*
     Depth First Search, DFS is a Base traversal algorithm
 
     time complexity O(V + E) - which is linear to the size of graph
  */
 
-import com.anzop.graph.Graph;
-import com.anzop.graph.Vertex;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
-public class DepthFirstSearch {
-    private final Graph graph;
-
-    private HashSet<Vertex> visited = new HashSet<>();
-
-    private ArrayList<String> path;
+public class DepthFirstSearch extends BaseSearch {
 
     private int groupCode = 0;
 
-    private void initialize() {
-        visited = new HashSet<>();
-        path = new ArrayList<>();
+    protected void initialize() {
+        super.initialize();
+
         groupCode = 0;
     }
 
-    private void bookkeeping(Vertex vertex) {
+    protected void bookkeeping(Edge edge) {
+        super.bookkeeping(edge);
+
+        Vertex vertex = edge.getDestination();
         vertex.setGroupCode(groupCode);
-        path.add(vertex.getLabel());
-        visited.add(vertex);
     }
 
-    private void traverse(Vertex from) {
+    private void traverse(Edge from) {
         bookkeeping(from);
 
-        graph.getEdgesSorted(from).forEach(edge -> {
+        graph.getEdgesSorted(from.getDestination()).forEach(edge -> {
             if (!visited.contains(edge.getDestination())) {
-                traverse(edge.getDestination());
+                traverse(edge);
             }
         });
     }
 
-    private void traverse(Vertex from, Vertex to) {
+    private void traverse(Edge from, Vertex to) {
+        Vertex vertex = from.getDestination();
         bookkeeping(from);
 
-        if (from.equals(to)) {
+        if (vertex.equals(to)) {
             return;
         }
 
-        graph.getEdgesSorted(from).forEach(edge -> {
+        graph.getEdgesSorted(vertex).forEach(edge -> {
             if (!visited.contains(edge.getDestination())) {
-                traverse(edge.getDestination(), to);
+                traverse(edge, to);
             }
         });
     }
 
     public DepthFirstSearch(Graph graph) {
-        this.graph = graph;
+        super(graph);
     }
 
-    public ArrayList<String> traverseWhileNext(Vertex from) {
+    public SearchResult traverseWhileNext(Vertex from) {
         initialize();
 
         if (graph.getKeysSorted().contains(from)) {
-            traverse(from);
+            traverse(makeStarterEdge(from));
         }
-        return path;
+        return makeResponse(path);
     }
 
-    public ArrayList<String> traverseInto(Vertex from, Vertex to) {
+    public SearchResult traverseInto(Vertex from, Vertex to) {
         initialize();
 
         if (graph.getKeysSorted().contains(from)) {
-            traverse(from, to);
+            traverse(makeStarterEdge(from), to);
         }
-        return path;
+        return makeResponse(path);
     }
 
-    public ArrayList<String> fullTraverse() {
+    public SearchResult fullTraverse() {
         initialize();
 
         graph.getKeysSorted().forEach(vertex -> {
             if (!visited.contains(vertex)) {
-                traverse(vertex);
+                traverse(makeStarterEdge(vertex));
             }
         });
 
-        return path;
+        return makeResponse(path);
     }
 
     public int findComponents() {
@@ -97,11 +91,10 @@ public class DepthFirstSearch {
         graph.getKeysSorted().forEach(vertex -> {
             if (!visited.contains(vertex)) {
                 groupCode++;
-                traverse(vertex);
+                traverse(makeStarterEdge(vertex));
             }
         });
         
         return groupCode;
     }
-
 }

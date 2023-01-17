@@ -1,10 +1,10 @@
 package com.anzop.graph;
 
-public class Response {
+public class SearchResult {
     private final String path;
     private final int cost;
 
-    public Response(String path, int cost) {
+    public SearchResult(String path, int cost) {
         this.path = path;
         this.cost = cost;
     }

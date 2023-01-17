@@ -17,10 +17,10 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        String expected = "[A, B, C]";
+        String expected = "A, B, C";
 
-        assertEquals(expected, dfs.traverseWhileNext(new Vertex("A")).toString());
-        assertEquals(expected, dfs.fullTraverse().toString());
+        assertEquals(expected, dfs.traverseWhileNext(new Vertex("A")).getPath());
+        assertEquals(expected, dfs.fullTraverse().getPath());
     }
 
     @Test
@@ -33,10 +33,10 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        String expected = "[A, B, C]";
+        String expected = "A, B, C";
 
-        assertEquals(expected, dfs.traverseWhileNext(new Vertex("A")).toString());
-        assertEquals(expected, dfs.fullTraverse().toString());
+        assertEquals(expected, dfs.traverseWhileNext(new Vertex("A")).getPath());
+        assertEquals(expected, dfs.fullTraverse().getPath());
     }
 
     @Test
@@ -49,10 +49,10 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        String expected = "[A, B, C, D]";
+        String expected = "A, B, C, D";
 
-        assertEquals(expected, dfs.traverseWhileNext(new Vertex("A")).toString());
-        assertEquals(expected, dfs.fullTraverse().toString());
+        assertEquals(expected, dfs.traverseWhileNext(new Vertex("A")).getPath());
+        assertEquals(expected, dfs.fullTraverse().getPath());
     }
 
     @Test
@@ -64,9 +64,9 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        String expected = "[E]";
+        String expected = "E";
 
-        assertEquals(expected, dfs.traverseWhileNext(new Vertex("E")).toString());
+        assertEquals(expected, dfs.traverseWhileNext(new Vertex("E")).getPath());
     }
 
     @Test
@@ -76,9 +76,9 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        String expected = "[]";
+        String expected = "";
 
-        assertEquals(expected, dfs.traverseWhileNext(new Vertex("C")).toString());
+        assertEquals(expected, dfs.traverseWhileNext(new Vertex("C")).getPath());
     }
 
     @Test
@@ -90,9 +90,9 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        String expected = "[A, D, B, C]";
+        String expected = "A, D, B, C";
 
-        assertEquals(expected, dfs.fullTraverse().toString());
+        assertEquals(expected, dfs.fullTraverse().getPath());
     }
 
     @Test
@@ -104,9 +104,9 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        String expected = "[A, B, D, C, E]";
+        String expected = "A, B, D, C, E";
 
-        assertEquals(expected, dfs.fullTraverse().toString());
+        assertEquals(expected, dfs.fullTraverse().getPath());
     }
 
     @Test
@@ -119,9 +119,9 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        String expected = "[A]";
+        String expected = "A";
 
-        assertEquals(expected, dfs.traverseInto(new Vertex("A"), new Vertex("A")).toString());
+        assertEquals(expected, dfs.traverseInto(new Vertex("A"), new Vertex("A")).getPath());
     }
 
     @Test
@@ -134,9 +134,9 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        String expected = "[C]";
+        String expected = "C";
 
-        assertEquals(expected, dfs.traverseInto(new Vertex("C"), new Vertex("C")).toString());
+        assertEquals(expected, dfs.traverseInto(new Vertex("C"), new Vertex("C")).getPath());
     }
 
     @Test
@@ -149,9 +149,9 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        String expected = "[C, D, A, B]";
+        String expected = "C, D, A, B";
 
-        assertEquals(expected, dfs.traverseInto(new Vertex("C"), new Vertex("B")).toString());
+        assertEquals(expected, dfs.traverseInto(new Vertex("C"), new Vertex("B")).getPath());
     }
 
     @Test
@@ -164,9 +164,9 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        String expected = "[B, C, A]";
+        String expected = "B, C, A";
 
-        assertEquals(expected, dfs.traverseInto(new Vertex("B"), new Vertex("E")).toString());
+        assertEquals(expected, dfs.traverseInto(new Vertex("B"), new Vertex("E")).getPath());
     }
 
     @Test
@@ -179,9 +179,9 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        String expected = "[B, C, D, A]";
+        String expected = "B, C, D, A";
 
-        assertEquals(expected, dfs.traverseInto(new Vertex("B"), new Vertex("E")).toString());
+        assertEquals(expected, dfs.traverseInto(new Vertex("B"), new Vertex("E")).getPath());
     }
 
     @Test
@@ -194,9 +194,9 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        String expected = "[]";
+        String expected = "";
 
-        assertEquals(expected, dfs.traverseInto(new Vertex("E"), new Vertex("E")).toString());
+        assertEquals(expected, dfs.traverseInto(new Vertex("E"), new Vertex("E")).getPath());
     }
 
     @Test
@@ -209,9 +209,9 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        String expected = "[]";
+        String expected = "";
 
-        assertEquals(expected, dfs.traverseInto(new Vertex("E"), new Vertex("F")).toString());
+        assertEquals(expected, dfs.traverseInto(new Vertex("E"), new Vertex("F")).getPath());
     }
 
     @Test
@@ -224,9 +224,9 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        String expected = "[]";
+        String expected = "";
 
-        assertEquals(expected, dfs.traverseInto(new Vertex("E"), new Vertex("A")).toString());
+        assertEquals(expected, dfs.traverseInto(new Vertex("E"), new Vertex("A")).getPath());
     }
 
     @Test
@@ -270,7 +270,6 @@ public class DepthFirstSearchTest {
 
         g.addEdge("U", "V", 1);
 
-
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
         assertEquals(3, dfs.findComponents());
@@ -285,7 +284,6 @@ public class DepthFirstSearchTest {
 
         g.addEdge("U", "A", 1);
 
-
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
         assertEquals(3, dfs.findComponents());
@@ -299,7 +297,6 @@ public class DepthFirstSearchTest {
         g.addBidirectionalEdge("I", "J", 1);
 
         g.addBidirectionalEdge("U", "A", 1);
-
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
