@@ -36,12 +36,10 @@ public class GraphTest {
         Graph g = new Graph();
         g.addEdge("A", "A", 1);
         g.addEdge("A", "B", 1);
-        g.addEdge("A", "C", 1);
 
         String expectedBefore =
-                "A -> (A, 1), (B, 1), (C, 1)\n" +
-                "B -> \n" +
-                "C -> \n";
+                "A -> (A, 1), (B, 1)\n" +
+                "B -> \n";
 
         assertEquals(expectedBefore, g.toString());
 
@@ -49,13 +47,11 @@ public class GraphTest {
 
         String notExpectedAfter =
                 "A -> \n" +
-                "B -> \n" +
-                "C -> \n";
+                "B -> \n";
 
         String expectedAfter =
-                "A -> (A, 1), (B, 1), (C, 1)\n" +
-                "B -> \n" +
-                "C -> \n";
+                "A -> (A, 1), (B, 1)\n" +
+                "B -> \n";
 
         assertNotEquals(notExpectedAfter, g.toString());
         assertEquals(expectedAfter, g.toString());
@@ -85,7 +81,7 @@ public class GraphTest {
     }
 
     @Test
-    void TestRemoveVertexRemovesVertexButLeavesOtherVertices() {
+    void TestRemoveVertexLeavesOtherVertices() {
         Graph g = new Graph();
         Vertex v1 = new Vertex("A");
         Vertex v2 = new Vertex("B");
@@ -99,27 +95,19 @@ public class GraphTest {
     }
 
     @Test
-    void TestAddVertexAsValueAndRemoveAsVertexRemovesVertex() {
+    void TestAddOrRemoveVertexAsValuesOrVertexMayBeUsedInterchangeably() {
         Graph g = new Graph();
         g.addVertex("A");
-        g.addVertex("B");
+        assertEquals("A -> \n", g.toString());
+
+        g.addVertex(new Vertex("B"));
+        assertEquals("A -> \nB -> \n", g.toString());
+
+        g.removeVertex("B");
+        assertEquals("A -> \n", g.toString());
+
         g.removeVertex(new Vertex("A"));
-
-        String expected = "B -> \n";
-
-        assertEquals(expected, g.toString());
-    }
-
-    @Test
-    void TestAddAndRemoveVertexAsValuesRemovesVertex() {
-        Graph g = new Graph();
-        g.addVertex("A");
-        g.addVertex("B");
-        g.removeVertex("A");
-
-        String expected = "B -> \n";
-
-        assertEquals(expected, g.toString());
+        assertEquals("", g.toString());
     }
 
     @Test
@@ -164,85 +152,29 @@ public class GraphTest {
         assertEquals(expected, g.toString()); }
 
     @Test
-    void TestAddUniDirectedBinaryCycleSuccess() {
+    void TestAddBidirectionalEdgeAddsEdges() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "A", 2);
+        g.addBidirectionalEdge("A", "B", 1);
 
         String expected =
                 "A -> (B, 1)\n" +
-                "B -> (A, 2)\n";
+                "B -> (A, 1)\n";
 
-        assertEquals(expected, g.toString()); }
-
-    @Test
-    void TestAddTertiaryCycleSuccess() {
-        Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 2);
-        g.addEdge("C", "A", 3);
-
-        String expected =
-                "A -> (B, 1)\n" +
-                "B -> (C, 2)\n" +
-                "C -> (A, 3)\n";
-
-        assertEquals(expected, g.toString()); }
+        assertEquals(expected, g.toString());
+    }
 
     @Test
-    void TestAddUniDirectedTertiaryCycleSuccess() {
+    void TestAddBidirectionalEdgeThenRemoveOneEdgeLeavesOtherEdge() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 2);
-        g.addEdge("C", "A", 3);
-
-        g.addEdge("A", "C", 4);
-        g.addEdge("C", "B", 5);
-        g.addEdge("B", "A", 6);
-
-        String expected =
-                "A -> (B, 1), (C, 4)\n" +
-                "B -> (A, 6), (C, 2)\n" +
-                "C -> (A, 3), (B, 5)\n";
-
-        assertEquals(expected, g.toString()); }
-
-    @Test
-    void TestAddDuplicateEdgeAddsOnlyOneEdge() {
-        Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("A", "B", 11);
-        g.addEdge("A", "B", 1);
-
-        String expected =
-                "A -> (B, 1), (B, 11)\n" +
-                "B -> \n";
-
-        assertEquals(expected, g.toString()); }
-
-    @Test
-    void TestAddEdgeWithDuplicateDestinationButDifferentWeightSuccess() {
-        Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("A", "B", 2);
-
-        String expected =
-                "A -> (B, 1), (B, 2)\n" +
-                "B -> \n";
-
-        assertEquals(expected, g.toString()); }
-
-    @Test
-    void TestRemoveEdgeLeavesItsDestinationVertex() {
-        Graph g = new Graph();
-        Vertex v = new Vertex("A");
-        Edge e = new Edge(new Vertex("B"), 1);
-        g.addEdge(v, e);
-        g.removeEdge(v, e);
+        Vertex v1 = new Vertex("A");
+        Vertex v2 = new Vertex("B");
+        Edge e = new Edge(v2, 1);
+        g.addBidirectionalEdge(v1, v2, 1);
+        g.removeEdge(v1, e);
 
         String expected =
                 "A -> \n" +
-                "B -> \n";
+                "B -> (A, 1)\n";
 
         assertEquals(expected, g.toString());
     }
@@ -275,33 +207,22 @@ public class GraphTest {
     }
 
     @Test
-    void TestRemoveVertexFromTertiaryUnidirectionalCycleSuccess() {
+    void TestRemoveEdgeLeavesEdgeToSameDestinationWithDifferentWeight() {
         Graph g = new Graph();
         g.addEdge("A", "B", 1);
-        g.addEdge("B", "C", 2);
-        g.addEdge("C", "A", 3);
-        g.addEdge("A", "C", 4);
-        g.addEdge("C", "B", 5);
-        g.addEdge("B", "A", 6);
+        g.addEdge("A", "B", 2);
 
-        String expectedBefore =
-                "A -> (B, 1), (C, 4)\n" +
-                "B -> (A, 6), (C, 2)\n" +
-                "C -> (A, 3), (B, 5)\n";
+        g.removeEdge(new Vertex("A"), new Edge(new Vertex("B"), 1));
 
-        assertEquals(expectedBefore, g.toString());
+        String expected =
+                "A -> (B, 2)\n" +
+                "B -> \n";
 
-        g.removeVertex(new Vertex("B"));
-
-        String expectedAfter =
-                "A -> (C, 4)\n" +
-                "C -> (A, 3)\n";
-
-        assertEquals(expectedAfter, g.toString());
+        assertEquals(expected, g.toString());
     }
 
     @Test
-    void TestRemoveVertexFromQuadraticCompleteBiDiGraphSuccess() {
+    void TestRemoveVertexFromQuadraticCompleteGraph() {
         Graph g = new Graph();
         g.addEdge("A", "A", 0);
         g.addEdge("A", "B", 1);
@@ -337,6 +258,61 @@ public class GraphTest {
 
         assertEquals(expectedAfter, g.toString());
     }
+
+    @Test
+    void TestAddCyclicalGraph() {
+        Graph g = new Graph();
+        g.addEdge("A", "B", 1);
+        g.addEdge("B", "C", 2);
+        g.addEdge("C", "A", 3);
+
+        String expected =
+                "A -> (B, 1)\n" +
+                "B -> (C, 2)\n" +
+                "C -> (A, 3)\n";
+
+        assertEquals(expected, g.toString()); }
+
+    @Test
+    void TestAddDuplicateEdgeAddsOnlyOneEdge() {
+        Graph g = new Graph();
+        g.addEdge("A", "B", 1);
+        g.addEdge("A", "B", 11);
+        g.addEdge("A", "B", 1);
+
+        String expected =
+                "A -> (B, 1), (B, 11)\n" +
+                "B -> \n";
+
+        assertEquals(expected, g.toString()); }
+
+    @Test
+    void TestAddEdgeWithDuplicateDestinationButDifferentWeight() {
+        Graph g = new Graph();
+        g.addEdge("A", "B", 1);
+        g.addEdge("A", "B", 2);
+
+        String expected =
+                "A -> (B, 1), (B, 2)\n" +
+                "B -> \n";
+
+        assertEquals(expected, g.toString()); }
+
+    @Test
+    void TestRemoveEdgeLeavesItsDestinationVertex() {
+        Graph g = new Graph();
+        Vertex v = new Vertex("A");
+        Edge e = new Edge(new Vertex("B"), 1);
+        g.addEdge(v, e);
+        g.removeEdge(v, e);
+
+        String expected =
+                "A -> \n" +
+                "B -> \n";
+
+        assertEquals(expected, g.toString());
+    }
+
     @Test
     void TestGetKeysSortedReturnsKeysSortedByVertexLabel() {
         Graph g = new Graph();

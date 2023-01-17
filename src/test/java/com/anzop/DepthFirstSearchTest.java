@@ -294,14 +294,11 @@ public class DepthFirstSearchTest {
     @Test
     void TestFindComponentsWhenComponentHaLinkBackInBiDiGraph() {
         Graph g = new Graph();
-        g.addEdge("A", "B", 1);
-        g.addEdge("B", "A", 1);
+        g.addBidirectionalEdge("A", "B", 1);
 
-        g.addEdge("I", "J", 1);
-        g.addEdge("J", "I", 1);
+        g.addBidirectionalEdge("I", "J", 1);
 
-        g.addEdge("U", "A", 1);
-        g.addEdge("A", "U", 1);
+        g.addBidirectionalEdge("U", "A", 1);
 
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);

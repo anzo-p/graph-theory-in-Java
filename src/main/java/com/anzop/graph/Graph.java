@@ -60,6 +60,19 @@ public class Graph {
         addEdge(new Vertex(source), new Edge(new Vertex(destination), weight));
     }
 
+    public void addBidirectionalEdge(Vertex source, Vertex destination, int weight) {
+        addEdge(source, new Edge(destination, weight));
+        addEdge(destination, new Edge(source, weight));
+    }
+
+    public void addBidirectionalEdge(String source, String destination, int weight) {
+        Vertex from = new Vertex(source);
+        Vertex to = new Vertex(destination);
+
+        addEdge(from, new Edge(to, weight));
+        addEdge(to, new Edge(from, weight));
+    }
+
     public void removeEdge(Vertex vertex, Edge edge) {
         graph.get(vertex).remove(edge);
     }
