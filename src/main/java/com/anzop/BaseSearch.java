@@ -19,8 +19,8 @@ public class BaseSearch {
     protected ArrayList<Edge> path;
 
     protected void initialize() {
-        visited = new HashSet<>();
         path = new ArrayList<>();
+        visited = new HashSet<>();
     }
 
     protected Edge makeStarterEdge(Vertex vertex) {
