@@ -1,6 +1,6 @@
 package com.anzop.graph;
 
-// example path from Computerphile, see https://en.wikipedia.org/wiki/Depth-first_search
+// example path from Computerphile, see https://www.youtube.com/watch?v=GazC3A4OQTE
 
 public class ComplexExample {
 

@@ -4,8 +4,11 @@ import com.anzop.graph.Graph;
 import com.anzop.graph.Vertex;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SingleSourceShortestDistanceTest {
 
@@ -40,21 +43,72 @@ public class SingleSourceShortestDistanceTest {
 
     @Test
     void testSingleSourceShortestDistance() {
-
         SingleSourceShortestDistance sssd = new SingleSourceShortestDistance(graph);
 
-        Map<Vertex, Integer> shortestPath = sssd.find();
+        String distancesFormatted = Arrays.toString(
+                sssd
+                        .find()
+                        .entrySet()
+                        .stream().map(e -> e.getKey().getLabel() + "=" + e.getValue())
+                        .toArray()
+        );
 
-        System.out.println(shortestPath);
+        assertEquals(
+                "[A=0, B=3, C=6, D=7, E=3, F=12, G=9, H=11]",
+                distancesFormatted
+        );
+
+        String pathsFormatted = Arrays.toString(
+                sssd
+                        .getPaths()
+                        .entrySet()
+                        .stream()
+                        .map(e -> e.getKey().getLabel() + "=" + e.getValue())
+                        .toArray()
+        );
+
+        assertEquals(
+                "[A=[A], B=[A, B], C=[A, C], D=[A, B, D], E=[A, B, D, E], F=[A, B, D, F], G=[A, B, D, G], H=[A, B, D, G, H]]",
+                pathsFormatted
+        );
     }
 
     @Test
     void testSingleSourceLongestLongestDistance() {
 
-        Map<Vertex, Integer> invertedLongestPaths = new SingleSourceShortestDistance(graph.invertedWeights()).find();
+        SingleSourceShortestDistance sssd = new SingleSourceShortestDistance(graph.invertedWeights());
 
-        Map<Vertex, Integer> longestPaths = invertedLongestPaths.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue() * -1));
+        Map<Vertex, Integer> longestPaths = sssd
+                .find()
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue() * -1));
 
-        System.out.println(longestPaths);
+        String distancesFormatted = Arrays.toString(
+                longestPaths
+                        .entrySet()
+                        .stream()
+                        .map(e -> e.getKey().getLabel() + "=" + e.getValue())
+                        .toArray()
+        );
+
+        assertEquals(
+                "[A=0, B=3, C=7, D=15, E=14, F=20, G=18, H=23]",
+                distancesFormatted
+        );
+
+        String pathsFormatted = Arrays.toString(
+                sssd
+                        .getPaths()
+                        .entrySet()
+                        .stream()
+                        .map(e -> e.getKey().getLabel() + "=" + e.getValue())
+                        .toArray()
+        );
+
+        assertEquals(
+                "[A=[A], B=[A, B], C=[A, B, C], D=[A, B, C, D], E=[A, B, E], F=[A, B, C, D, F], G=[A, B, C, G], H=[A, B, E, H]]",
+                pathsFormatted
+        );
     }
 }
