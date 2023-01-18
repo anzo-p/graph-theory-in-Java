@@ -22,7 +22,7 @@ public class Edge implements Comparable<Edge> {
 
     @Override
     public String toString() {
-        return "(" + this.destination.getLabel() + ", " + this.weight + ")";
+        return "(" + destination.getLabel() + ", " + weight + ")";
     }
 
     @Override

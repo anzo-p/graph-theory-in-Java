@@ -149,7 +149,8 @@ public class GraphTest {
                 "A -> (B, 1)\n" +
                 "B -> \n";
 
-        assertEquals(expected, g.toString()); }
+        assertEquals(expected, g.toString());
+    }
 
     @Test
     void TestAddBidirectionalEdgeAddsEdges() {
@@ -271,7 +272,8 @@ public class GraphTest {
                 "B -> (C, 2)\n" +
                 "C -> (A, 3)\n";
 
-        assertEquals(expected, g.toString()); }
+        assertEquals(expected, g.toString());
+    }
 
     @Test
     void TestAddDuplicateEdgeAddsOnlyOneEdge() {
@@ -284,7 +286,8 @@ public class GraphTest {
                 "A -> (B, 1), (B, 11)\n" +
                 "B -> \n";
 
-        assertEquals(expected, g.toString()); }
+        assertEquals(expected, g.toString());
+    }
 
     @Test
     void TestAddEdgeWithDuplicateDestinationButDifferentWeight() {
@@ -296,7 +299,8 @@ public class GraphTest {
                 "A -> (B, 1), (B, 2)\n" +
                 "B -> \n";
 
-        assertEquals(expected, g.toString()); }
+        assertEquals(expected, g.toString());
+    }
 
     @Test
     void TestRemoveEdgeLeavesItsDestinationVertex() {
@@ -340,5 +344,41 @@ public class GraphTest {
         String expected = "[(B, 2), (B, 9), (C, 3), (D, 4)]";
 
         assertEquals(expected, g.getEdgesSorted(v).toString());
+    }
+
+    @Test
+    void TestInvertedWeights() {
+        Graph g = new Graph();
+        g.addEdge("A", "B", 1);
+        g.addEdge("A", "B", 2);
+        g.addEdge("B", "C", 3);
+        g.addEdge("B", "C", 4);
+        g.addEdge("C", "A", 5);
+
+
+        String expected =
+                "A -> (B, -2), (B, -1)\n" +
+                "B -> (C, -4), (C, -3)\n" +
+                "C -> (A, -5)\n";
+
+        assertEquals(expected, g.invertedWeights().toString());
+    }
+
+    @Test
+    void TestInvertedDirections() {
+        Graph g = new Graph();
+        g.addEdge("A", "B", 1);
+        g.addEdge("A", "B", 2);
+        g.addEdge("B", "C", 3);
+        g.addEdge("B", "C", 4);
+        g.addEdge("C", "A", 5);
+
+
+        String expected =
+                "A -> (C, 5)\n" +
+                "B -> (A, 1), (A, 2)\n" +
+                "C -> (B, 3), (B, 4)\n";
+
+        assertEquals(expected, g.invertedDirections().toString());
     }
 }

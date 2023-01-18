@@ -59,10 +59,6 @@ public class Graph {
         addEdge(new Vertex(source), new Edge(new Vertex(destination), weight));
     }
 
-    public void addEdge(Vertex source, Vertex destination) {
-        addEdge(source, new Edge(destination, 0));
-    }
-
     public void addEdge(String source, String destination) {
         addEdge(new Vertex(source), new Edge(new Vertex(destination), 0));
     }
@@ -76,16 +72,16 @@ public class Graph {
         addBidirectionalEdge(new Vertex(source), new Vertex(destination), weight);
     }
 
-    public void addBidirectionalEdge(Vertex source, Vertex destination) {
-        addBidirectionalEdge(source, destination, 0);
-    }
-
     public void addBidirectionalEdge(String source, String destination) {
         addBidirectionalEdge(source, destination, 0);
     }
 
     public void removeEdge(Vertex vertex, Edge edge) {
         graph.get(vertex).remove(edge);
+    }
+
+    public ArrayList<Vertex> getVertices() {
+        return new ArrayList<>(graph.keySet());
     }
 
     public ArrayList<Vertex> getVerticesSorted() {
@@ -96,6 +92,10 @@ public class Graph {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    public ArrayList<Edge> getEdges(Vertex vertex) {
+        return graph.get(vertex);
+    }
+
     public ArrayList<Edge> getEdgesSorted(Vertex vertex) {
         return graph
                 .get(vertex)
@@ -104,6 +104,30 @@ public class Graph {
                                 .comparing(Edge::getDestination, Comparator.comparing(Vertex::getLabel))
                                 .thenComparing(Edge::getWeight))
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public int getSize() {
+        return getVertices().size();
+    }
+
+    public Graph invertedWeights() {
+        Graph inverted = new Graph();
+
+        graph.forEach((vertex, edges) ->
+                edges.forEach(edge -> inverted.addEdge(vertex, edge.getDestination(), edge.getWeight() * -1))
+        );
+
+        return inverted;
+    }
+
+    public Graph invertedDirections() {
+        Graph inverted = new Graph();
+
+        graph.forEach((vertex, edges) ->
+                edges.forEach(edge -> inverted.addEdge(edge.getDestination(), vertex, edge.getWeight()))
+        );
+
+        return inverted;
     }
 
     @Override
