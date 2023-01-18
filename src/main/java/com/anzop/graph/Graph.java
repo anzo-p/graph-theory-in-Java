@@ -80,6 +80,10 @@ public class Graph {
         graph.get(vertex).remove(edge);
     }
 
+    public ArrayList<Edge> getVertex(Vertex vertex) {
+        return graph.get(vertex);
+    }
+
     public ArrayList<Vertex> getVertices() {
         return new ArrayList<>(graph.keySet());
     }
@@ -98,7 +102,7 @@ public class Graph {
 
     public ArrayList<Edge> getEdgesSorted(Vertex vertex) {
         return graph
-                .get(vertex)
+                .getOrDefault(vertex, new ArrayList<>())
                 .stream()
                 .sorted(Comparator
                                 .comparing(Edge::getDestination, Comparator.comparing(Vertex::getLabel))

@@ -11,12 +11,14 @@ public class BreadthFirstSearchTest {
 
     @Test
     void TestTraverseIntoComplexPath() {
+        // this is but a smoke test as there will be many corner cases
+
         BreadthFirstSearch bfs = new BreadthFirstSearch(new ComplexExample().get());
 
         String expectedPath = "S, B, H, G, E";
         int expectedCost = 7;
 
-        SearchResult res = bfs.traverseDijkstra(new Vertex("S"), new Vertex("E"));
+        SearchResult res = bfs.traverse(new Vertex("S"), new Vertex("E"));
 
         assertEquals(expectedPath, res.getPath());
         assertEquals(expectedCost, res.getCost());

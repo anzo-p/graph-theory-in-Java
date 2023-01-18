@@ -13,53 +13,53 @@ public class ComplexExample {
     public ComplexExample() {
         g = new Graph();
 
-        g.addEdge("S", "A", 7);
-        g.addEdge("S", "B", 2);
-        g.addEdge("S", "C", 3);
+        g.addBidirectionalEdge("S", "A", 7);
+        g.addBidirectionalEdge("S", "B", 2);
+        g.addBidirectionalEdge("S", "C", 3);
 
-        g.addEdge("A", "S", 7);
-        g.addEdge("A", "B", 3);
-        g.addEdge("A", "D", 4);
+        g.addBidirectionalEdge("A", "S", 7);
+        g.addBidirectionalEdge("A", "B", 3);
+        g.addBidirectionalEdge("A", "D", 4);
 
-        g.addEdge("B", "S", 2);
-        g.addEdge("B", "A", 3);
-        g.addEdge("B", "D", 4);
-        g.addEdge("B", "H", 1);
+        g.addBidirectionalEdge("B", "S", 2);
+        g.addBidirectionalEdge("B", "A", 3);
+        g.addBidirectionalEdge("B", "D", 4);
+        g.addBidirectionalEdge("B", "H", 1);
 
-        g.addEdge("C", "S", 3);
-        g.addEdge("C", "L", 2);
+        g.addBidirectionalEdge("C", "S", 3);
+        g.addBidirectionalEdge("C", "L", 2);
 
-        g.addEdge("D", "A", 4);
-        g.addEdge("D", "B", 4);
-        g.addEdge("D", "F", 5);
+        g.addBidirectionalEdge("D", "A", 4);
+        g.addBidirectionalEdge("D", "B", 4);
+        g.addBidirectionalEdge("D", "F", 5);
 
-        g.addEdge("F", "D", 5);
-        g.addEdge("F", "H", 3);
+        g.addBidirectionalEdge("F", "D", 5);
+        g.addBidirectionalEdge("F", "H", 3);
 
-        g.addEdge("G", "H", 2);
-        g.addEdge("G", "E", 2);
+        g.addBidirectionalEdge("G", "H", 2);
+        g.addBidirectionalEdge("G", "E", 2);
 
-        g.addEdge("H", "B", 1);
-        g.addEdge("H", "F", 3);
-        g.addEdge("H", "G", 2);
+        g.addBidirectionalEdge("H", "B", 1);
+        g.addBidirectionalEdge("H", "F", 3);
+        g.addBidirectionalEdge("H", "G", 2);
 
-        g.addEdge("I", "J", 6);
-        g.addEdge("I", "L", 4);
-        g.addEdge("I", "K", 4);
+        g.addBidirectionalEdge("I", "J", 6);
+        g.addBidirectionalEdge("I", "L", 4);
+        g.addBidirectionalEdge("I", "K", 4);
 
-        g.addEdge("J", "I", 6);
-        g.addEdge("J", "L", 4);
-        g.addEdge("J", "K", 4);
+        g.addBidirectionalEdge("J", "I", 6);
+        g.addBidirectionalEdge("J", "L", 4);
+        g.addBidirectionalEdge("J", "K", 4);
 
-        g.addEdge("K", "E", 5);
-        g.addEdge("K", "I", 4);
-        g.addEdge("K", "J", 4);
+        g.addBidirectionalEdge("K", "E", 5);
+        g.addBidirectionalEdge("K", "I", 4);
+        g.addBidirectionalEdge("K", "J", 4);
 
-        g.addEdge("L", "C", 2);
-        g.addEdge("L", "I", 4);
-        g.addEdge("L", "J", 4);
+        g.addBidirectionalEdge("L", "C", 2);
+        g.addBidirectionalEdge("L", "I", 4);
+        g.addBidirectionalEdge("L", "J", 4);
 
-        g.addEdge("E", "G", 2);
-        g.addEdge("E", "K", 5);
+        g.addBidirectionalEdge("E", "G", 2);
+        g.addBidirectionalEdge("E", "K", 5);
     }
 }

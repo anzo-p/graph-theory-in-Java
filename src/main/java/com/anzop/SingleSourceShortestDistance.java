@@ -9,8 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /*
-    Only works with Directed Acyclic Graph.
-    With a DAG, its linear, ie O(V + E)
+    Works with - Directional, Acyclic, Negative Weights
+
+    O(V + E)
  */
 
 

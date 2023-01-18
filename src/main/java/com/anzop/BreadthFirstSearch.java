@@ -22,7 +22,7 @@ public class BreadthFirstSearch extends BaseSearch {
         super(graph);
     }
 
-    public SearchResult traverseDijkstra(Vertex from , Vertex to) {
+    public SearchResult traverse(Vertex from , Vertex to) {
         initialize();
 
         queue.add(makeStarterEdge(from));
