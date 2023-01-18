@@ -1,5 +1,6 @@
 package com.anzop;
 
+import com.anzop.graph.Edge;
 import com.anzop.graph.Graph;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class TopologicalSort {
 
     private final DepthFirstSearch dfs;
 
-    private final ArrayList<String> topOrder;
+    private final ArrayList<Edge> topOrder;
 
     private final HashSet<String> added;
 
@@ -21,7 +22,7 @@ public class TopologicalSort {
         topOrder = new ArrayList<>();
     }
 
-    public ArrayList<String> sort() {
+    public ArrayList<Edge> sort() {
         dfs.initialize();
 
         dfs.graph.getVerticesSorted().forEach(vertex -> {
@@ -31,7 +32,7 @@ public class TopologicalSort {
             dfs.path.forEach(edge -> {
                 String vertexLabel = edge.getDestination().getLabel();
                 if (!added.contains(vertexLabel)) {
-                    topOrder.add(vertexLabel);
+                    topOrder.add(edge);
                     added.add(vertexLabel);
                 }
             });

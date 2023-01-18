@@ -60,11 +60,11 @@ public class Graph {
     }
 
     public void addEdge(Vertex source, Vertex destination) {
-        addEdge(source, new Edge(destination, 1));
+        addEdge(source, new Edge(destination, 0));
     }
 
     public void addEdge(String source, String destination) {
-        addEdge(new Vertex(source), new Edge(new Vertex(destination), 1));
+        addEdge(new Vertex(source), new Edge(new Vertex(destination), 0));
     }
 
     public void addBidirectionalEdge(Vertex source, Vertex destination, int weight) {
@@ -77,11 +77,11 @@ public class Graph {
     }
 
     public void addBidirectionalEdge(Vertex source, Vertex destination) {
-        addBidirectionalEdge(source, destination, 1);
+        addBidirectionalEdge(source, destination, 0);
     }
 
     public void addBidirectionalEdge(String source, String destination) {
-        addBidirectionalEdge(source, destination, 1);
+        addBidirectionalEdge(source, destination, 0);
     }
 
     public void removeEdge(Vertex vertex, Edge edge) {

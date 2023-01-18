@@ -3,9 +3,10 @@ package com.anzop;
 import com.anzop.graph.Graph;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TopologicalSortTest {
 
@@ -43,10 +44,10 @@ public class TopologicalSortTest {
 
         g.addEdge("K", "J");
 
-        ArrayList<String> result = new TopologicalSort(g).sort();
+        ArrayList<String> result = new TopologicalSort(g).sort().stream().map(e -> e.getDestination().getLabel()).collect(Collectors.toCollection(ArrayList::new));
 
         // there would be many answers as topological orders are not unique
-        // this answer is expected because of orderings in the graph queries
+        // this answer is expected because the keys and value lists in the graph are sorted
         assertEquals("[E, F, K, C, B, A, D, G, I, L, H, J, M]", result.toString());
     }
 }
