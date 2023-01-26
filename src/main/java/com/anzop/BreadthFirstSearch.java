@@ -5,13 +5,15 @@ import com.anzop.graph.*;
 import java.util.PriorityQueue;
 
 /*
-    Breadth First Search, BFS is a Base traversal algorithm
+    Breadth First Search, BFS
 
-    time complexity O(V + E) - which is linear to the size of graph
+    - Works with any graph, simple and practical when the graph has unweighted edges
 
-    Most importantly a BFS optimizes on two things
-    - introduces assessment on which branch might be more optimal to take next
-    - the memory footprint of traversal
+    - Base traversal algorithm, better than Depth First search in that it
+      - introduces assessment on which branch might be more optimal to take next
+      - the memory footprint of traversal
+
+    - O(V + E) - which is linear to the size of graph
  */
 
 public class BreadthFirstSearch extends BaseSearch {

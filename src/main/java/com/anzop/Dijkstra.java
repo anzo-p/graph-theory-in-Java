@@ -11,9 +11,15 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 
 /*
-    Works with - Bidirectional, Cyclic, Only Positive Weights
+    Dijkstra
 
-    O(V + E)
+    Works with Bidirectional, Cyclic, Only Positive Weights,
+
+    Best when the graph has weighted edges
+
+    O((V + E) * Log V) if prio queue was indexed
+
+    A* and the likes are beefed up Dijksta's
  */
 
 public class Dijkstra extends BaseSearch{
