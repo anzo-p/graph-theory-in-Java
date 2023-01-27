@@ -5,7 +5,7 @@ Study notes on [Graph Algorithms](https://www.youtube.com/watch?v=09_LlHjoEiY&li
 - v - Node, Vertex
 - e - Edge, association between nodes
 
-Edges often represented as (u, v, w)
+Edges often represented as `(u, v, w)`
 - u - from edge
 - v - to edge
 - w - weight of edge
@@ -51,7 +51,7 @@ E. Complete graphs
 
 Adjacency Matrix
 - node by node matrix, quadratic over node count
-- value in Matrix[i][j] (also coordination (y, x)) represents the edge weight of that traversal
+- value in `Matrix[i][j]` (also coordination (y, x)) represents the edge weight of that traversal
 - value from Edge to itself often assumed to be 0
 - Pros
     - Lookup time is O(1)
