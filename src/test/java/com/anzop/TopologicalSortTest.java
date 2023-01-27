@@ -44,7 +44,11 @@ public class TopologicalSortTest {
 
         g.addEdge("K", "J");
 
-        ArrayList<String> result = new TopologicalSort(g).sort().stream().map(e -> e.getDestination().getLabel()).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<String> result = new TopologicalSort(g)
+                .sort()
+                .stream()
+                .map(e -> e.getDestination().getLabel())
+                .collect(Collectors.toCollection(ArrayList::new));
 
         // there would be many answers as topological orders are not unique
         // this answer is expected because the keys and value lists in the graph are sorted

@@ -15,7 +15,7 @@ public class GraphTest {
         Graph g = new Graph();
         g.addVertex(new Vertex("A"));
 
-        String expected = "A -> \n";
+        String expected = "A <0> -> \n";
 
         assertEquals(expected, g.toString());
     }
@@ -26,7 +26,7 @@ public class GraphTest {
         g.addVertex(new Vertex("A"));
         g.addVertex(new Vertex("A"));
 
-        String expected = "A -> \n";
+        String expected = "A <0> -> \n";
 
         assertEquals(expected, g.toString());
     }
@@ -38,20 +38,20 @@ public class GraphTest {
         g.addEdge("A", "B", 1);
 
         String expectedBefore =
-                "A -> (A, 1), (B, 1)\n" +
-                "B -> \n";
+                "A <0> -> (A, 1), (B, 1)\n" +
+                "B <0> -> \n";
 
         assertEquals(expectedBefore, g.toString());
 
         g.addVertex("A");
 
         String notExpectedAfter =
-                "A -> \n" +
-                "B -> \n";
+                "A <0> -> \n" +
+                "B <0> -> \n";
 
         String expectedAfter =
-                "A -> (A, 1), (B, 1)\n" +
-                "B -> \n";
+                "A <0> -> (A, 1), (B, 1)\n" +
+                "B <0> -> \n";
 
         assertNotEquals(notExpectedAfter, g.toString());
         assertEquals(expectedAfter, g.toString());
@@ -62,7 +62,7 @@ public class GraphTest {
         Graph g = new Graph();
         g.addVertex("A");
 
-        String expected = "A -> \n";
+        String expected = "A <0> -> \n";
 
         assertEquals(expected, g.toString());
 
@@ -89,7 +89,7 @@ public class GraphTest {
         g.addVertex(v2);
         g.removeVertex(v1);
 
-        String expected = "B -> \n";
+        String expected = "B <0> -> \n";
 
         assertEquals(expected, g.toString());
     }
@@ -98,13 +98,13 @@ public class GraphTest {
     void TestAddOrRemoveVertexAsValuesOrVertexMayBeUsedInterchangeably() {
         Graph g = new Graph();
         g.addVertex("A");
-        assertEquals("A -> \n", g.toString());
+        assertEquals("A <0> -> \n", g.toString());
 
         g.addVertex(new Vertex("B"));
-        assertEquals("A -> \nB -> \n", g.toString());
+        assertEquals("A <0> -> \nB <0> -> \n", g.toString());
 
         g.removeVertex("B");
-        assertEquals("A -> \n", g.toString());
+        assertEquals("A <0> -> \n", g.toString());
 
         g.removeVertex(new Vertex("A"));
         assertEquals("", g.toString());
@@ -120,8 +120,8 @@ public class GraphTest {
         g.addEdge(v1, new Edge(v2, 1));
 
         String expected =
-                "A -> (B, 1)\n" +
-                "B -> \n";
+                "A <0> -> (B, 1)\n" +
+                "B <0> -> \n";
 
         assertEquals(expected, g.toString());
     }
@@ -134,8 +134,8 @@ public class GraphTest {
         g.addEdge(v1, v2, 1);
 
         String expected =
-                "A -> (B, 1)\n" +
-                "B -> \n";
+                "A <0> -> (B, 1)\n" +
+                "B <0> -> \n";
 
         assertEquals(expected, g.toString());
     }
@@ -146,8 +146,8 @@ public class GraphTest {
         g.addEdge("A", "B", 1);
 
         String expected =
-                "A -> (B, 1)\n" +
-                "B -> \n";
+                "A <0> -> (B, 1)\n" +
+                "B <0> -> \n";
 
         assertEquals(expected, g.toString());
     }
@@ -158,8 +158,8 @@ public class GraphTest {
         g.addBidirectionalEdge("A", "B", 1);
 
         String expected =
-                "A -> (B, 1)\n" +
-                "B -> (A, 1)\n";
+                "A <0> -> (B, 1)\n" +
+                "B <0> -> (A, 1)\n";
 
         assertEquals(expected, g.toString());
     }
@@ -174,8 +174,8 @@ public class GraphTest {
         g.removeEdge(v1, e);
 
         String expected =
-                "A -> \n" +
-                "B -> (A, 1)\n";
+                "A <0> -> \n" +
+                "B <0> -> (A, 1)\n";
 
         assertEquals(expected, g.toString());
     }
@@ -192,17 +192,17 @@ public class GraphTest {
         g.addEdge(v2, v3, 3);
 
         String expectedBefore =
-                "A -> (B, 1), (B, 2)\n" +
-                "B -> (A, 4), (C, 3)\n" +
-                "C -> \n";
+                "A <0> -> (B, 1), (B, 2)\n" +
+                "B <0> -> (A, 4), (C, 3)\n" +
+                "C <0> -> \n";
 
         assertEquals(expectedBefore, g.toString());
 
         g.removeVertex(v2);
 
         String expectedAfter =
-                "A -> \n" +
-                "C -> \n";
+                "A <0> -> \n" +
+                "C <0> -> \n";
 
         assertEquals(expectedAfter, g.toString());
     }
@@ -216,8 +216,8 @@ public class GraphTest {
         g.removeEdge(new Vertex("A"), new Edge(new Vertex("B"), 1));
 
         String expected =
-                "A -> (B, 2)\n" +
-                "B -> \n";
+                "A <0> -> (B, 2)\n" +
+                "B <0> -> \n";
 
         assertEquals(expected, g.toString());
     }
@@ -243,10 +243,10 @@ public class GraphTest {
         g.addEdge("D", "C", 5);
 
         String expectedBefore =
-                "A -> (A, 0), (B, 1), (C, 2), (D, 3)\n" +
-                "B -> (A, 7), (B, 4), (C, 5), (D, 6)\n" +
-                "C -> (A, 0), (B, 1), (C, 8), (D, 9)\n" +
-                "D -> (A, 3), (B, 4), (C, 5), (D, 2)\n";
+                "A <0> -> (A, 0), (B, 1), (C, 2), (D, 3)\n" +
+                "B <0> -> (A, 7), (B, 4), (C, 5), (D, 6)\n" +
+                "C <0> -> (A, 0), (B, 1), (C, 8), (D, 9)\n" +
+                "D <0> -> (A, 3), (B, 4), (C, 5), (D, 2)\n";
 
         assertEquals(expectedBefore, g.toString());
 
@@ -254,8 +254,8 @@ public class GraphTest {
         g.removeVertex(new Vertex("D"));
 
         String expectedAfter =
-                "A -> (A, 0), (C, 2)\n" +
-                "C -> (A, 0), (C, 8)\n";
+                "A <0> -> (A, 0), (C, 2)\n" +
+                "C <0> -> (A, 0), (C, 8)\n";
 
         assertEquals(expectedAfter, g.toString());
     }
@@ -268,9 +268,9 @@ public class GraphTest {
         g.addEdge("C", "A", 3);
 
         String expected =
-                "A -> (B, 1)\n" +
-                "B -> (C, 2)\n" +
-                "C -> (A, 3)\n";
+                "A <0> -> (B, 1)\n" +
+                "B <0> -> (C, 2)\n" +
+                "C <0> -> (A, 3)\n";
 
         assertEquals(expected, g.toString());
     }
@@ -283,8 +283,8 @@ public class GraphTest {
         g.addEdge("A", "B", 1);
 
         String expected =
-                "A -> (B, 1), (B, 11)\n" +
-                "B -> \n";
+                "A <0> -> (B, 1), (B, 11)\n" +
+                "B <0> -> \n";
 
         assertEquals(expected, g.toString());
     }
@@ -296,8 +296,8 @@ public class GraphTest {
         g.addEdge("A", "B", 2);
 
         String expected =
-                "A -> (B, 1), (B, 2)\n" +
-                "B -> \n";
+                "A <0> -> (B, 1), (B, 2)\n" +
+                "B <0> -> \n";
 
         assertEquals(expected, g.toString());
     }
@@ -311,8 +311,8 @@ public class GraphTest {
         g.removeEdge(v, e);
 
         String expected =
-                "A -> \n" +
-                "B -> \n";
+                "A <0> -> \n" +
+                "B <0> -> \n";
 
         assertEquals(expected, g.toString());
     }
@@ -327,7 +327,11 @@ public class GraphTest {
 
         String expected = "[A, B, C, D]";
 
-        ArrayList<String> keys = g.getVerticesSorted().stream().map(Vertex::getLabel).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<String> keys = g
+                .getVerticesSorted()
+                .stream()
+                .map(Vertex::getLabel)
+                .collect(Collectors.toCollection(ArrayList::new));
 
         assertEquals(expected, keys.toString());
     }
@@ -357,9 +361,9 @@ public class GraphTest {
 
 
         String expected =
-                "A -> (B, -2), (B, -1)\n" +
-                "B -> (C, -4), (C, -3)\n" +
-                "C -> (A, -5)\n";
+                "A <0> -> (B, -2), (B, -1)\n" +
+                "B <0> -> (C, -4), (C, -3)\n" +
+                "C <0> -> (A, -5)\n";
 
         assertEquals(expected, g.invertedWeights().toString());
     }
@@ -375,9 +379,9 @@ public class GraphTest {
 
 
         String expected =
-                "A -> (C, 5)\n" +
-                "B -> (A, 1), (A, 2)\n" +
-                "C -> (B, 3), (B, 4)\n";
+                "A <0> -> (C, 5)\n" +
+                "B <0> -> (A, 1), (A, 2)\n" +
+                "C <0> -> (B, 3), (B, 4)\n";
 
         assertEquals(expected, g.invertedDirections().toString());
     }

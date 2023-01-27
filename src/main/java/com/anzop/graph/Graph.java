@@ -140,8 +140,8 @@ public class Graph {
 
         for (Vertex vertex : getVerticesSorted()) {
             result
-                    .append(vertex.getLabel())
-                    .append(" -> ")
+                    .append(vertex)
+                    .append(" -> ") // could append => for bridge
                     .append(getEdgesSorted(vertex).toString())
                     .append("\n");
         }

@@ -4,6 +4,9 @@ import com.anzop.graph.Graph;
 import com.anzop.graph.Vertex;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -235,7 +238,7 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        assertEquals(0, dfs.findComponents());
+        assertEquals(Collections.emptyList(), dfs.findComponents());
     }
 
     @Test
@@ -245,7 +248,7 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        assertEquals(1, dfs.findComponents());
+        assertEquals(Collections.singletonList(0), dfs.findComponents());
     }
 
     @Test
@@ -256,7 +259,7 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        assertEquals(1, dfs.findComponents());
+        assertEquals(Collections.singletonList(0), dfs.findComponents());
     }
 
     @Test
@@ -272,7 +275,7 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        assertEquals(3, dfs.findComponents());
+        assertEquals(Arrays.asList(0, 1, 2),  dfs.findComponents());
     }
 
     @Test
@@ -286,11 +289,11 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        assertEquals(3, dfs.findComponents());
+        assertEquals(Arrays.asList(0, 1, 2), dfs.findComponents());
     }
 
     @Test
-    void TestFindComponentsWhenComponentHaLinkBackInBiDiGraph() {
+    void TestFindComponentsWhenComponentHasLinkBackInBiDiGraph() {
         Graph g = new Graph();
         g.addBidirectionalEdge("A", "B");
 
@@ -300,6 +303,6 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        assertEquals(2, dfs.findComponents());
+        assertEquals(Arrays.asList(0, 1), dfs.findComponents());
     }
 }

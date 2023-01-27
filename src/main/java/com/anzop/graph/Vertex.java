@@ -1,33 +1,54 @@
 package com.anzop.graph;
 
 import java.util.Objects;
-import java.util.Optional;
 
 public class Vertex {
     private final String label;
 
-    private Optional<Integer> groupCode = Optional.empty();
+    private Integer groupCode;
+
+    private String color;
 
     public Vertex(String label) {
+        this(label, 0, "green");
+    }
+
+    public Vertex(String label, int groupCode) {
+        this(label, groupCode, "green");
+    }
+
+    public Vertex(String label, int groupCode, String color) {
         this.label = label;
+        this.groupCode = groupCode;
+        this.color = color;
     }
 
     public String getLabel() {
         return label;
     }
 
-    public Optional<Integer> getGroupCode() {
+    public Integer getGroupCode() {
         return groupCode;
     }
 
+    public String getColor() {
+        return color;
+    }
+
     public void setGroupCode(int groupCode) {
-        this.groupCode = Optional.of(groupCode);
+        this.groupCode = groupCode;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     @Override
     public String toString() {
         // fixme need to decide group code presentation
-        return label + '|' + groupCode.orElse(0);
+        // label, group number, 'color', lowest link
+        // A <1, Blue, A> => (B, 1), (C, 11)
+        return label + " <" + groupCode + ">";
     }
 
     @Override

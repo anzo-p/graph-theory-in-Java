@@ -2,6 +2,9 @@ package com.anzop;
 
 import com.anzop.graph.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /*
     Depth First Search, DFS is a Base traversal algorithm
 
@@ -85,16 +88,22 @@ public class DepthFirstSearch extends BaseSearch {
         return makeResponse(path);
     }
 
-    public int findComponents() {
+    public List<Integer> findComponents() {
         initialize();
 
         graph.getVerticesSorted().forEach(vertex -> {
             if (!visited.contains(vertex)) {
-                groupCode++;
                 traverse(makeStarterEdge(vertex));
+                groupCode++;
             }
         });
-        
-        return groupCode;
+
+        return graph
+                .getVertices()
+                .stream()
+                .map(Vertex::getGroupCode)
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
     }
 }
