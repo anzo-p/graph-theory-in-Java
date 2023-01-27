@@ -3,6 +3,7 @@ package com.anzop.graph;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -327,7 +328,7 @@ public class GraphTest {
 
         String expected = "[A, B, C, D]";
 
-        ArrayList<String> keys = g
+        List<String> keys = g
                 .getVerticesSorted()
                 .stream()
                 .map(Vertex::getLabel)

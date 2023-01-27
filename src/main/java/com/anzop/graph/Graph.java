@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Graph {
-    private final Map<Vertex, ArrayList<Edge>> graph = new HashMap<>();
+    private final Map<Vertex, List<Edge>> graph = new HashMap<>();
 
     public void addVertex(Vertex source) { if (!graph.containsKey(source)) graph.put(source, new ArrayList<>()); }
 
@@ -13,7 +13,7 @@ public class Graph {
     }
 
     public void removeVertex(Vertex deleteVertex) {
-        Map<Vertex, ArrayList<Edge>> deletedEdges = new HashMap<>();
+        Map<Vertex, List<Edge>> deletedEdges = new HashMap<>();
 
         /*
             Successfully pops a vertex and its edges even from a complete bidirectional graph.
@@ -44,7 +44,7 @@ public class Graph {
         addVertex(source);
         addVertex(edge.getDestination());
 
-        ArrayList<Edge> edges = graph.get(source);
+        List<Edge> edges = graph.get(source);
 
         if (!edges.contains(edge)) {
             edges.add(edge);
@@ -80,15 +80,15 @@ public class Graph {
         graph.get(vertex).remove(edge);
     }
 
-    public ArrayList<Edge> getVertex(Vertex vertex) {
+    public List<Edge> getVertex(Vertex vertex) {
         return graph.get(vertex);
     }
 
-    public ArrayList<Vertex> getVertices() {
+    public List<Vertex> getVertices() {
         return new ArrayList<>(graph.keySet());
     }
 
-    public ArrayList<Vertex> getVerticesSorted() {
+    public List<Vertex> getVerticesSorted() {
         return graph
                 .keySet()
                 .stream()
@@ -96,11 +96,11 @@ public class Graph {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public ArrayList<Edge> getEdges(Vertex vertex) {
+    public List<Edge> getEdges(Vertex vertex) {
         return graph.get(vertex);
     }
 
-    public ArrayList<Edge> getEdgesSorted(Vertex vertex) {
+    public List<Edge> getEdgesSorted(Vertex vertex) {
         return graph
                 .getOrDefault(vertex, new ArrayList<>())
                 .stream()

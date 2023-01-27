@@ -15,10 +15,11 @@ import com.anzop.graph.Graph;
 import com.anzop.graph.Vertex;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class BellmanFord extends BaseSearch {
 
-    private final HashMap<Vertex, Double> distances = new HashMap<>();
+    private final Map<Vertex, Double> distances = new HashMap<>();
 
     BellmanFord(Graph graph) {
         super(graph);
@@ -47,7 +48,7 @@ public class BellmanFord extends BaseSearch {
         }
     }
 
-    public HashMap<Vertex, Double> solve() {
+    public Map<Vertex, Double> solve() {
         initialize();
 
         for (Vertex vertex : graph.getVertices()) {

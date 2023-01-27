@@ -4,6 +4,7 @@ import com.anzop.graph.Graph;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,7 +45,7 @@ public class TopologicalSortTest {
 
         g.addEdge("K", "J");
 
-        ArrayList<String> result = new TopologicalSort(g)
+        List<String> result = new TopologicalSort(g)
                 .sort()
                 .stream()
                 .map(e -> e.getDestination().getLabel())

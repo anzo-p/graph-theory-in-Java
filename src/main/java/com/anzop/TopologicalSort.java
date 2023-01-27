@@ -6,13 +6,14 @@ import com.anzop.graph.Graph;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 
 
 public class TopologicalSort {
 
     private final DepthFirstSearch dfs;
 
-    private final ArrayList<Edge> topOrder;
+    private final List<Edge> topOrder;
 
     private final HashSet<String> added;
 
@@ -22,7 +23,7 @@ public class TopologicalSort {
         topOrder = new ArrayList<>();
     }
 
-    public ArrayList<Edge> sort() {
+    public List<Edge> sort() {
         dfs.initialize();
 
         dfs.graph.getVerticesSorted().forEach(vertex -> {

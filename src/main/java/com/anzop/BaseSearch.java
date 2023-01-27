@@ -7,6 +7,7 @@ import com.anzop.graph.Vertex;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -16,7 +17,7 @@ public class BaseSearch {
 
     protected HashSet<Vertex> visited = new HashSet<>();
 
-    protected ArrayList<Edge> path;
+    protected List<Edge> path;
 
     protected void initialize() {
         path = new ArrayList<>();
@@ -32,7 +33,7 @@ public class BaseSearch {
         visited.add(edge.getDestination());
     }
 
-    protected SearchResult makeResponse(ArrayList<Edge> path) {
+    protected SearchResult makeResponse(List<Edge> path) {
         return new SearchResult(
                 path
                         .stream()

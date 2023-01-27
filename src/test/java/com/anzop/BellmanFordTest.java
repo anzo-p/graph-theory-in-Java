@@ -4,9 +4,7 @@ import com.anzop.graph.Graph;
 import com.anzop.graph.Vertex;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -31,9 +29,9 @@ public class BellmanFordTest {
 
         BellmanFord bf = new BellmanFord(g);
 
-        HashMap<Vertex, Double> result = bf.solve();
+        Map<Vertex, Double> result = bf.solve();
 
-        ArrayList<Double> expected = new ArrayList<>(Arrays.asList(
+        List<Double> expected = new ArrayList<>(Arrays.asList(
                 0.0,
                 Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY,
                 Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY
@@ -60,9 +58,9 @@ public class BellmanFordTest {
 
         BellmanFord bf = new BellmanFord(g);
 
-        HashMap<Vertex, Double> result = bf.solve();
+        Map<Vertex, Double> result = bf.solve();
 
-        ArrayList<Double> expected = new ArrayList<>(Arrays.asList(
+        List<Double> expected = new ArrayList<>(Arrays.asList(
                 0.0, 5.0,
                 Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY,
                 35.0, 40., -10.0, -20.0,
@@ -88,9 +86,9 @@ public class BellmanFordTest {
 
         BellmanFord bf = new BellmanFord(g);
 
-        HashMap<Vertex, Double> result = bf.solve();
+        Map<Vertex, Double> result = bf.solve();
 
-        ArrayList<Double> expected = new ArrayList<>(Arrays.asList(
+        List<Double> expected = new ArrayList<>(Arrays.asList(
                 0.0, 1.0,
                 Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY,
                 5.0, 5.0, 8.0

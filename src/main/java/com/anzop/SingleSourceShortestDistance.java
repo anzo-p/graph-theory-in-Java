@@ -6,6 +6,7 @@ import com.anzop.graph.Vertex;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -19,11 +20,11 @@ public class SingleSourceShortestDistance {
 
     private final Graph graph;
 
-    private final ArrayList<Edge> topSorted;
+    private final List<Edge> topSorted;
 
     private final Map<Vertex, Integer> distances = new HashMap<>();
 
-    private final Map<Vertex, ArrayList<String>> paths = new HashMap<>();
+    private final Map<Vertex, List<String>> paths = new HashMap<>();
 
     public SingleSourceShortestDistance(Graph graph) {
         this.graph = graph;
@@ -50,7 +51,7 @@ public class SingleSourceShortestDistance {
                 if (newDistance < bestKnown) {
                     distances.put(to.getDestination(), newDistance);
 
-                    ArrayList<String> shortestPath = new ArrayList<>(paths.get(from.getDestination()));
+                    List<String> shortestPath = new ArrayList<>(paths.get(from.getDestination()));
                     shortestPath.add(to.getDestination().getLabel());
                     paths.put(to.getDestination(), shortestPath);
                 }
@@ -58,7 +59,7 @@ public class SingleSourceShortestDistance {
         return distances;
     }
 
-    public Map<Vertex, ArrayList<String>> getPaths() {
+    public Map<Vertex, List<String>> getPaths() {
         return paths;
     }
 }

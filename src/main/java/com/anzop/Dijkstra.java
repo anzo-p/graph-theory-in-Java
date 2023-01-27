@@ -5,10 +5,7 @@ import com.anzop.graph.Graph;
 import com.anzop.graph.SearchResult;
 import com.anzop.graph.Vertex;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /*
     Dijkstra
@@ -26,9 +23,9 @@ public class Dijkstra extends BaseSearch{
 
     private final PriorityQueue<Edge> queue = new PriorityQueue<>();
 
-    private final HashMap<Vertex, Integer> distances = new HashMap<>();
+    private final Map<Vertex, Integer> distances = new HashMap<>();
 
-    private ArrayList<Edge> runDijkstra(Vertex from , Vertex to) {
+    private List<Edge> runDijkstra(Vertex from , Vertex to) {
         queue.add(makeStarterEdge(from));
         distances.put(from, 0);
 
@@ -63,13 +60,13 @@ public class Dijkstra extends BaseSearch{
     public SearchResult dijkstra(Vertex from, Vertex to) {
         initialize();
 
-        ArrayList<Edge> searchRun = runDijkstra(from, to);
+        List<Edge> searchRun = runDijkstra(from, to);
 
         if (searchRun.isEmpty())
             return makeResponse(searchRun);
 
         Collections.reverse(searchRun);
-        ArrayList<Edge> cleanupRun = new ArrayList<>();
+        List<Edge> cleanupRun = new ArrayList<>();
 
         Edge curr = searchRun.get(0);
         cleanupRun.add(curr);
