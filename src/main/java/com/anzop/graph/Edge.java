@@ -27,7 +27,7 @@ public class Edge implements Comparable<Edge> {
 
     @Override
     public int hashCode() {
-        return (destination.hashCode() + ~weight);
+        return Objects.hash(destination, weight);
     }
 
     @Override

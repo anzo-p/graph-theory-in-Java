@@ -5,6 +5,7 @@ import com.anzop.graph.Vertex;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -49,7 +50,9 @@ public class SingleSourceShortestDistanceTest {
                 sssd
                         .find()
                         .entrySet()
-                        .stream().map(e -> e.getKey().getLabel() + "=" + e.getValue())
+                        .stream()
+                        .sorted(Comparator.comparing(e -> e.getKey().getLabel()))
+                        .map(e -> e.getKey().getLabel() + "=" + e.getValue())
                         .toArray()
         );
 
@@ -63,6 +66,7 @@ public class SingleSourceShortestDistanceTest {
                         .getPaths()
                         .entrySet()
                         .stream()
+                        .sorted(Comparator.comparing(e -> e.getKey().getLabel()))
                         .map(e -> e.getKey().getLabel() + "=" + e.getValue())
                         .toArray()
         );
@@ -88,6 +92,7 @@ public class SingleSourceShortestDistanceTest {
                 longestPaths
                         .entrySet()
                         .stream()
+                        .sorted(Comparator.comparing(e -> e.getKey().getLabel()))
                         .map(e -> e.getKey().getLabel() + "=" + e.getValue())
                         .toArray()
         );
@@ -102,6 +107,7 @@ public class SingleSourceShortestDistanceTest {
                         .getPaths()
                         .entrySet()
                         .stream()
+                        .sorted(Comparator.comparing(e -> e.getKey().getLabel()))
                         .map(e -> e.getKey().getLabel() + "=" + e.getValue())
                         .toArray()
         );

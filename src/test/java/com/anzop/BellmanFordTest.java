@@ -37,7 +37,9 @@ public class BellmanFordTest {
                 Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY
         ));
 
-        assertEquals(expected, result.values().stream().collect(ArrayList::new, ArrayList::add, ArrayList::addAll));
+        TreeMap<Vertex, Double> sorted = new TreeMap<>(result);
+
+        assertEquals(expected, sorted.values().stream().collect(ArrayList::new, ArrayList::add, ArrayList::addAll));
     }
 
     @Test
@@ -67,7 +69,9 @@ public class BellmanFordTest {
                 Double.NEGATIVE_INFINITY
         ));
 
-        assertEquals(expected, result.values().stream().collect(ArrayList::new, ArrayList::add, ArrayList::addAll));
+        TreeMap<Vertex, Double> sorted = new TreeMap<>(result);
+
+        assertEquals(expected, sorted.values().stream().collect(ArrayList::new, ArrayList::add, ArrayList::addAll));
     }
 
     @Test
@@ -94,6 +98,8 @@ public class BellmanFordTest {
                 5.0, 5.0, 8.0
         ));
 
-        assertEquals(expected, result.values().stream().collect(ArrayList::new, ArrayList::add, ArrayList::addAll));
+        TreeMap<Vertex, Double> sorted = new TreeMap<>(result);
+
+        assertEquals(expected, sorted.values().stream().collect(ArrayList::new, ArrayList::add, ArrayList::addAll));
     }
 }

@@ -2,7 +2,7 @@ package com.anzop.graph;
 
 import java.util.Objects;
 
-public class Vertex {
+public class Vertex implements Comparable<Vertex> {
     private final String label;
 
     private Integer groupCode;
@@ -53,7 +53,7 @@ public class Vertex {
 
     @Override
     public int hashCode() {
-        return label.hashCode();
+        return Objects.hash(label);
     }
 
     @Override
@@ -64,5 +64,10 @@ public class Vertex {
 
         Vertex comparison = (Vertex) o;
         return Objects.equals(label, comparison.label);
+    }
+
+    @Override
+    public int compareTo(Vertex o) {
+        return label.compareTo(o.label);
     }
 }
