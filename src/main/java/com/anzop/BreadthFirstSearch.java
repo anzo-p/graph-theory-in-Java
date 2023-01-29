@@ -37,7 +37,7 @@ public class BreadthFirstSearch extends BaseSearch {
 
             if (vertex.equals(to)) return makeResponse(path);
 
-            graph.getEdgesSorted(vertex).forEach(nextEdge -> {
+            graph.getEdges(vertex).forEach(nextEdge -> {
                 if (!visited.contains(nextEdge.getDestination())) {
                     queue.add(nextEdge);
                 }

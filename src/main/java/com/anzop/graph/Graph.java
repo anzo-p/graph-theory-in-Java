@@ -141,7 +141,7 @@ public class Graph {
         for (Vertex vertex : getVerticesSorted()) {
             result
                     .append(vertex)
-                    .append(" -> ") // could append => for bridge
+                    .append(" -> ")
                     .append(getEdgesSorted(vertex).toString())
                     .append("\n");
         }

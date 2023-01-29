@@ -238,7 +238,9 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        assertEquals(Collections.emptyList(), dfs.findComponents());
+        dfs.fullTraverse();
+
+        assertEquals(Collections.emptyList(), dfs.getComponents());
     }
 
     @Test
@@ -248,61 +250,58 @@ public class DepthFirstSearchTest {
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        assertEquals(Collections.singletonList(0), dfs.findComponents());
+        dfs.fullTraverse();
+
+        assertEquals(Collections.singletonList(0), dfs.getComponents());
     }
 
     @Test
     void TestFindComponentsOneComponent() {
         Graph g = new Graph();
-        g.addEdge("A", "B");
-        g.addEdge("B", "C");
+
+        g.addBidirectionalEdge("A", "B");
+        g.addBidirectionalEdge("B", "C");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        assertEquals(Collections.singletonList(0), dfs.findComponents());
+        dfs.fullTraverse();
+
+        assertEquals(Collections.singletonList(0), dfs.getComponents());
     }
 
     @Test
-    void TestFindComponentsFromThreeComponents() {
+    void TestFindComponentsFromWhenOneIsACycle() {
         Graph g = new Graph();
-        g.addEdge("A", "B");
-        g.addEdge("B", "C");
-        g.addEdge("C", "A");
+        g.addBidirectionalEdge("A", "B");
+        g.addBidirectionalEdge("B", "C");
+        g.addBidirectionalEdge("C", "A");
 
-        g.addEdge("I", "J");
-
-        g.addEdge("U", "V");
+        g.addBidirectionalEdge("I", "J");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        assertEquals(Arrays.asList(0, 1, 2),  dfs.findComponents());
+        dfs.fullTraverse();
+
+        assertEquals(Arrays.asList(0, 1),  dfs.getComponents());
     }
 
     @Test
-    void TestFindComponentsWhenComponentHasLateLinkBackInDirectedGraph() {
-        Graph g = new Graph();
-        g.addEdge("A", "B");
-
-        g.addEdge("I", "J");
-
-        g.addEdge("U", "A");
-
-        DepthFirstSearch dfs = new DepthFirstSearch(g);
-
-        assertEquals(Arrays.asList(0, 1, 2), dfs.findComponents());
-    }
-
-    @Test
-    void TestFindComponentsWhenComponentHasLinkBackInBiDiGraph() {
+    void TestFindComponentsWhenComponentHasLinkBack() {
         Graph g = new Graph();
         g.addBidirectionalEdge("A", "B");
 
         g.addBidirectionalEdge("I", "J");
 
+        /*
+            U belongs to the same component as A
+            discovering this in one pass from an adjacency list requires a bidi graph
+         */
         g.addBidirectionalEdge("U", "A");
 
         DepthFirstSearch dfs = new DepthFirstSearch(g);
 
-        assertEquals(Arrays.asList(0, 1), dfs.findComponents());
+        dfs.fullTraverse();
+
+        assertEquals(Arrays.asList(0, 1), dfs.getComponents());
     }
 }

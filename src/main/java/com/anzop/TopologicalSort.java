@@ -26,7 +26,7 @@ public class TopologicalSort {
     public List<Edge> sort() {
         dfs.initialize();
 
-        dfs.graph.getVerticesSorted().forEach(vertex -> {
+        dfs.graph.getVertices().forEach(vertex -> {
             dfs.traverseWhileNext(vertex);
 
             Collections.reverse(dfs.path);

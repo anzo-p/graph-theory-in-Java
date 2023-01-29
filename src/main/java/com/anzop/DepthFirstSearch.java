@@ -32,7 +32,7 @@ public class DepthFirstSearch extends BaseSearch {
     private void traverse(Edge from) {
         bookkeeping(from);
 
-        graph.getEdgesSorted(from.getDestination()).forEach(edge -> {
+        graph.getEdges(from.getDestination()).forEach(edge -> {
             if (!visited.contains(edge.getDestination())) {
                 traverse(edge);
             }
@@ -47,7 +47,7 @@ public class DepthFirstSearch extends BaseSearch {
             return;
         }
 
-        graph.getEdgesSorted(vertex).forEach(edge -> {
+        graph.getEdges(vertex).forEach(edge -> {
             if (!visited.contains(edge.getDestination())) {
                 traverse(edge, to);
             }
@@ -61,7 +61,7 @@ public class DepthFirstSearch extends BaseSearch {
     public SearchResult traverseWhileNext(Vertex from) {
         initialize();
 
-        if (graph.getVerticesSorted().contains(from)) {
+        if (graph.getVertices().contains(from)) {
             traverse(makeStarterEdge(from));
         }
         return makeResponse(path);
@@ -70,7 +70,7 @@ public class DepthFirstSearch extends BaseSearch {
     public SearchResult traverseInto(Vertex from, Vertex to) {
         initialize();
 
-        if (graph.getVerticesSorted().contains(from)) {
+        if (graph.getVertices().contains(from)) {
             traverse(makeStarterEdge(from), to);
         }
         return makeResponse(path);
@@ -82,22 +82,14 @@ public class DepthFirstSearch extends BaseSearch {
         graph.getVerticesSorted().forEach(vertex -> {
             if (!visited.contains(vertex)) {
                 traverse(makeStarterEdge(vertex));
+                groupCode++;
             }
         });
 
         return makeResponse(path);
     }
 
-    public List<Integer> findComponents() {
-        initialize();
-
-        graph.getVerticesSorted().forEach(vertex -> {
-            if (!visited.contains(vertex)) {
-                traverse(makeStarterEdge(vertex));
-                groupCode++;
-            }
-        });
-
+    public List<Integer> getComponents() {
         return graph
                 .getVertices()
                 .stream()
