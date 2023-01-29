@@ -6,10 +6,18 @@ import java.util.stream.Collectors;
 public class Graph {
     private final Map<Vertex, List<Edge>> graph = new HashMap<>();
 
-    public void addVertex(Vertex source) { if (!graph.containsKey(source)) graph.put(source, new ArrayList<>()); }
+    private final Map<String, Vertex> vertices = new HashMap<>();
+
+    public void addVertex(Vertex vertex) {
+        if (!vertices.containsKey(vertex.getLabel())) {
+            vertices.put(vertex.getLabel(), vertex);
+            graph.put(vertex, new ArrayList<>());
+        }
+    }
 
     public void addVertex(String label) {
-        addVertex(new Vertex(label));
+        Vertex vertex = vertices.getOrDefault(label, new Vertex(label));
+        addVertex(vertex);
     }
 
     public void removeVertex(Vertex deleteVertex) {
@@ -37,43 +45,53 @@ public class Graph {
     }
 
     public void removeVertex(String label) {
-        removeVertex(new Vertex(label));
+        removeVertex(vertices.get(label));
+        vertices.remove(label);
     }
 
-    public void addEdge(Vertex source, Edge edge) {
-        addVertex(source);
+    public void addEdge(Vertex vertex, Edge edge) {
+        addVertex(vertex);
         addVertex(edge.getDestination());
 
-        List<Edge> edges = graph.get(source);
+        List<Edge> edges = graph.get(vertex);
 
         if (!edges.contains(edge)) {
             edges.add(edge);
         }
     }
 
-    public void addEdge(Vertex source, Vertex destination, int weight) {
-        addEdge(source, new Edge(destination, weight));
+    public void addEdge(Vertex from, Vertex to, int weight) {
+        Optional<Edge> edge = graph
+                .getOrDefault(from, new ArrayList<>())
+                .stream()
+                .filter(e -> e.getDestination().equals(to) && e.getWeight() == weight)
+                .findFirst();
+
+        addEdge(from, edge.orElse(new Edge(to, weight)));
     }
 
-    public void addEdge(String source, String destination, int weight) {
-        addEdge(new Vertex(source), new Edge(new Vertex(destination), weight));
+    public void addEdge(String from, String to, int weight) {
+        Vertex a = vertices.getOrDefault(from, new Vertex(from));
+        Vertex b = vertices.getOrDefault(to, new Vertex(to));
+        addEdge(a, b, weight);
     }
 
-    public void addEdge(String source, String destination) {
-        addEdge(new Vertex(source), new Edge(new Vertex(destination), 0));
+    public void addEdge(String from, String to) {
+        addEdge(from, to, 0);
     }
 
-    public void addBidirectionalEdge(Vertex source, Vertex destination, int weight) {
-        addEdge(source, new Edge(destination, weight));
-        addEdge(destination, new Edge(source, weight));
+    public void addBidirectionalEdge(Vertex from, Vertex to, int weight) {
+        addEdge(from, to, weight);
+        addEdge(to, from, weight);
     }
 
-    public void addBidirectionalEdge(String source, String destination, int weight) {
-        addBidirectionalEdge(new Vertex(source), new Vertex(destination), weight);
+    public void addBidirectionalEdge(String from, String to, int weight) {
+        addEdge(from, to, weight);
+        addEdge(to, from, weight);
     }
 
-    public void addBidirectionalEdge(String source, String destination) {
-        addBidirectionalEdge(source, destination, 0);
+    public void addBidirectionalEdge(String from, String to) {
+        addBidirectionalEdge(from, to, 0);
     }
 
     public void removeEdge(Vertex vertex, Edge edge) {

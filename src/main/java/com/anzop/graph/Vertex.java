@@ -45,10 +45,7 @@ public class Vertex implements Comparable<Vertex> {
 
     @Override
     public String toString() {
-        // fixme need to decide group code presentation
-        // label, group number, 'color', lowest link
-        // A <1, Blue, A> => (B, 1), (C, 11)
-        return label + " <" + groupCode + ">";
+        return label;
     }
 
     @Override
