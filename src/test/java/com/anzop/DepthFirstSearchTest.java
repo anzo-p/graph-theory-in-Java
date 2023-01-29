@@ -240,7 +240,7 @@ public class DepthFirstSearchTest {
 
         dfs.fullTraverse();
 
-        assertEquals(Collections.emptyList(), dfs.getComponents());
+        assertEquals(Collections.emptyList(), dfs.showComponents());
     }
 
     @Test
@@ -252,7 +252,7 @@ public class DepthFirstSearchTest {
 
         dfs.fullTraverse();
 
-        assertEquals(Collections.singletonList(0), dfs.getComponents());
+        assertEquals(Collections.singletonList(0), dfs.showComponents());
     }
 
     @Test
@@ -266,7 +266,7 @@ public class DepthFirstSearchTest {
 
         dfs.fullTraverse();
 
-        assertEquals(Collections.singletonList(0), dfs.getComponents());
+        assertEquals(Collections.singletonList(0), dfs.showComponents());
     }
 
     @Test
@@ -282,7 +282,7 @@ public class DepthFirstSearchTest {
 
         dfs.fullTraverse();
 
-        assertEquals(Arrays.asList(0, 1),  dfs.getComponents());
+        assertEquals(Arrays.asList(0, 1), dfs.showComponents());
     }
 
     @Test
@@ -295,6 +295,7 @@ public class DepthFirstSearchTest {
         /*
             U belongs to the same component as A
             discovering this in one pass from an adjacency list requires a bidi graph
+            as only this makes all of A, B, and U discoverable while traversing their shared component
          */
         g.addBidirectionalEdge("U", "A");
 
@@ -302,6 +303,212 @@ public class DepthFirstSearchTest {
 
         dfs.fullTraverse();
 
-        assertEquals(Arrays.asList(0, 1), dfs.getComponents());
+        assertEquals(Arrays.asList(0, 1), dfs.showComponents());
+    }
+
+    @Test
+    void TestAllBridgesIntermediateArticulations() {
+        /*
+            A -- B -- C -- D
+         */
+        Graph g = new Graph();
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "D");
+
+        DepthFirstSearch dfs = new DepthFirstSearch(g);
+        dfs.fullTraverse();
+
+        assertEquals(Arrays.asList("B", "C"), dfs.showArticulationPoints());
+        assertEquals(Arrays.asList("A => B", "B => C", "C => D"), dfs.showBridges());
+    }
+
+    @Test
+    void TestAllBridgesCenterArticulation() {
+        /*
+            A -- B -- C
+                  \
+                   D
+         */
+        Graph g = new Graph();
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("B", "D");
+
+        DepthFirstSearch dfs = new DepthFirstSearch(g);
+        dfs.fullTraverse();
+
+        assertEquals(Collections.singletonList("B"), dfs.showArticulationPoints());
+        assertEquals(Arrays.asList("A => B", "B => C, D"), dfs.showBridges());
+    }
+
+    @Test
+    void TestBridgeAndArticulationCycleBeginning() {
+        /*
+               A -- D
+             /  \
+            B -- C
+
+         */
+        Graph g = new Graph();
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "A");
+        g.addEdge("A", "D");
+
+        DepthFirstSearch dfs = new DepthFirstSearch(g);
+        dfs.fullTraverse();
+
+        assertEquals(Collections.singletonList("A"), dfs.showArticulationPoints());
+        assertEquals(Collections.singletonList("A => D"), dfs.showBridges());
+    }
+
+    @Test
+    void TestArticulationAndBridgeFromCycle() {
+        /*
+            A -- B
+             \  /
+              C -- D
+         */
+        Graph g = new Graph();
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "A");
+        g.addEdge("C", "D");
+
+        DepthFirstSearch dfs = new DepthFirstSearch(g);
+        dfs.fullTraverse();
+
+        assertEquals(Collections.singletonList("C"), dfs.showArticulationPoints());
+        assertEquals(Collections.singletonList("C => D"), dfs.showBridges());
+    }
+
+    @Test
+    void TestBridgeIntoArticulationAndCycle() {
+        /*
+            C -- D -- E
+                  \  /
+                   F
+         */
+
+        Graph g = new Graph();
+        g.addEdge("C", "D");
+        g.addEdge("D", "E");
+        g.addEdge("E", "F");
+        g.addEdge("F", "D");
+
+        DepthFirstSearch dfs = new DepthFirstSearch(g);
+        dfs.fullTraverse();
+
+        assertEquals(Collections.singletonList("D"), dfs.showArticulationPoints());
+        assertEquals(Collections.singletonList("C => D"), dfs.showBridges());
+    }
+
+    @Test
+    void TestDoubleArticulationBridgeConnectsTwoCycles() {
+        /*
+            A -- B
+             \  /
+               C -- D -- E
+                     \  /
+                      F
+         */
+        Graph g = new Graph();
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "A");
+        g.addEdge("C", "D");
+        g.addEdge("D", "E");
+        g.addEdge("E", "F");
+        g.addEdge("F", "D");
+
+        DepthFirstSearch dfs = new DepthFirstSearch(g);
+        dfs.fullTraverse();
+
+        assertEquals(Arrays.asList("C", "D"), dfs.showArticulationPoints());
+        assertEquals(Collections.singletonList("C => D"), dfs.showBridges());
+    }
+
+    @Test
+    void TestTwoConnectedCyclesNoBridgeArticulationIsFirstVertex() {
+        /*
+                  D
+                /  \
+               A -- E
+             /  \
+            B -- C
+         */
+        Graph g = new Graph();
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "A");
+        g.addEdge("A", "D");
+        g.addEdge("D", "E");
+        g.addEdge("E", "A");
+
+        DepthFirstSearch dfs = new DepthFirstSearch(g);
+        dfs.fullTraverse();
+
+        assertEquals(Collections.singletonList("A"), dfs.showArticulationPoints());
+        assertEquals(Collections.emptyList(), dfs.showBridges());
+    }
+
+    @Test
+    void TestTwoConnectedCyclesNoBridgeArticulationIsNonInitialVertex() {
+        /*
+            A -- B
+             \  /
+              C -- D
+               \  /
+                E
+         */
+        Graph g = new Graph();
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "A");
+        g.addEdge("C", "D");
+        g.addEdge("D", "E");
+        g.addEdge("E", "C");
+
+        DepthFirstSearch dfs = new DepthFirstSearch(g);
+        dfs.fullTraverse();
+
+        assertEquals(Collections.emptyList(), dfs.showBridges());
+        assertEquals(Collections.singletonList("C"), dfs.showArticulationPoints());
+    }
+
+    @Test
+    void TestNoArticulationsOrBridges() {
+        /*
+            A -- B
+             \  / \
+              C -- D   we are encoding B -> C -> A and E -> C -> D
+               \  /    this means that C cannot know of association between B - D
+                E      C alone will not know that it is NOT an articulation point
+         */
+        Graph g = new Graph();
+        g.addEdge("A", "B");
+        g.addEdge("B", "C");
+        g.addEdge("C", "A");
+        g.addEdge("C", "D");
+        g.addEdge("D", "E");
+        g.addEdge("E", "C");
+        //g.addEdge("D", "B");
+        g.addEdge("B", "D");
+
+        DepthFirstSearch dfs = new DepthFirstSearch(g);
+        dfs.fullTraverse();
+
+        assertEquals(Collections.emptyList(), dfs.showBridges());
+
+        System.out.println(dfs.showArticulationPoints());
+
+        /*
+            Cutting out C
+            - won't increase the number of components in the graph.
+            - will separate the cycles A -> B -> C -> A and C -> D -> E -> C, though.
+
+            Will leave it undefined for now.
+         */
     }
 }

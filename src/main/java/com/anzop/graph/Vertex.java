@@ -9,6 +9,10 @@ public class Vertex implements Comparable<Vertex> {
 
     private String color;
 
+    private int linkSerial;
+
+    private int lowestLink;
+
     public Vertex(String label) {
         this(label, 0, "green");
     }
@@ -35,12 +39,28 @@ public class Vertex implements Comparable<Vertex> {
         return color;
     }
 
+    public int getLowestLink() {
+        return lowestLink;
+    }
+
+    public int getLinkSerial() {
+        return linkSerial;
+    }
+
     public void setGroupCode(int groupCode) {
         this.groupCode = groupCode;
     }
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public void setLinkSerial(int linkSerial) {
+        this.linkSerial = linkSerial;
+    }
+
+    public void setLowestLink(int lowestLink) {
+        this.lowestLink = lowestLink;
     }
 
     @Override
